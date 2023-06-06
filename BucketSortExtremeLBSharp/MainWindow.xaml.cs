@@ -67,7 +67,7 @@ public partial class MainWindow : Window
     {
         try
         {
-            var inputSizes = new List<int> { 100, 500, 1000, 5000, 10000, 50000, 100000 };
+            var inputSizes = new List<int> { 100, 5000, 10000, 50000, 100000 };
             var times = new List<double>();
 
             var testBucketSort = new BucketSort(1, 1, 1);
