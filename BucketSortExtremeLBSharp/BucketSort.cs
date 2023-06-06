@@ -32,6 +32,9 @@ public class BucketSort
 
     public List<double> Sort(List<double> input, bool descending)
     {
+        ComparisonCount = 0;
+        SwapCount = 0;
+
         var n = input.Count;
 
         var buckets = new List<List<double>>(n + 1);

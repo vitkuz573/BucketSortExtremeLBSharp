@@ -65,9 +65,9 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Margin="10">
-                <Label Content="Input:"/>
+                <Label Content="Исходный массив:"/>
                 <ListBox x:Name="InputListBox" Height="200"/>
-                <Label Content="Output:"/>
+                <Label Content="Отсортированный массив:"/>
                 <ListBox x:Name="OutputListBox" Height="200"/>
             </StackPanel>
 

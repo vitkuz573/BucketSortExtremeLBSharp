@@ -10,13 +10,14 @@ namespace BucketSortExtremeLBSharp;
 
 public partial class MainWindow : Window
 {
-    private BucketSort bucketSort;
-    private readonly Random random;
+    private BucketSort _bucketSort;
+    private readonly Random _random;
 
     public MainWindow()
     {
         InitializeComponent();
-        random = new Random();
+
+        _random = new Random();
     }
 
     private void GenerateButton_Click(object sender, RoutedEventArgs e)
@@ -27,7 +28,7 @@ public partial class MainWindow : Window
             var B = Convert.ToDouble(BTextBox.Text);
             var C = Convert.ToDouble(CTextBox.Text);
 
-            bucketSort = new BucketSort(A, B, C);
+            _bucketSort = new BucketSort(A, B, C);
 
             var size = Convert.ToInt32(SizeTextBox.Text);
 
@@ -35,8 +36,8 @@ public partial class MainWindow : Window
 
             for (int i = 0; i < size; i++)
             {
-                var u = random.NextDouble();
-                numbers.Add(bucketSort.FInverse(u));
+                var u = _random.NextDouble();
+                numbers.Add(_bucketSort.FInverse(u));
             }
 
             InputListBox.ItemsSource = numbers;
@@ -53,11 +54,11 @@ public partial class MainWindow : Window
         {
             var input = new List<double>((IEnumerable<double>)InputListBox.ItemsSource);
             var descending = DescendingCheckBox.IsChecked ?? false;
-            var sortedList = bucketSort.Sort(input, descending);
+            var sortedList = _bucketSort.Sort(input, descending);
 
             OutputListBox.ItemsSource = sortedList;
-            ComparisonCountTextBox.Text = bucketSort.ComparisonCount.ToString();
-            SwapCountTextBox.Text = bucketSort.SwapCount.ToString();
+            ComparisonCountTextBox.Text = _bucketSort.ComparisonCount.ToString();
+            SwapCountTextBox.Text = _bucketSort.SwapCount.ToString();
         }
         catch (Exception ex)
         {
@@ -80,7 +81,7 @@ public partial class MainWindow : Window
 
                 for (int i = 0; i < size; i++)
                 {
-                    numbers.Add(Math.Round(random.NextDouble() * 100));
+                    numbers.Add(Math.Round(_random.NextDouble() * 100));
                 }
 
                 var watch = Stopwatch.StartNew();
