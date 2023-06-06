@@ -30,14 +30,13 @@ public partial class MainWindow : Window
             bucketSort = new BucketSort(A, B, C);
 
             var size = Convert.ToInt32(SizeTextBox.Text);
-            var minRange = Convert.ToDouble(MinRangeTextBox.Text);
-            var maxRange = Convert.ToDouble(MaxRangeTextBox.Text);
 
             var numbers = new List<double>();
 
             for (int i = 0; i < size; i++)
             {
-                numbers.Add(Math.Round(minRange + (random.NextDouble() * (maxRange - minRange))));
+                var u = random.NextDouble();
+                numbers.Add(bucketSort.FInverse(u));
             }
 
             InputTextBox.Text = string.Join(",", numbers);

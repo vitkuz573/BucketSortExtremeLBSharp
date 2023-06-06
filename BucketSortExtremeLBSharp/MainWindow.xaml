@@ -9,8 +9,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -32,16 +32,6 @@
             <StackPanel Margin="10">
                 <Label Content="Размер:"/>
                 <TextBox x:Name="SizeTextBox" Width="100" TextWrapping="Wrap"/>
-            </StackPanel>
-
-            <StackPanel Margin="10">
-                <Label Content="Минимум:"/>
-                <TextBox x:Name="MinRangeTextBox" Width="100" TextWrapping="Wrap"/>
-            </StackPanel>
-
-            <StackPanel Margin="10">
-                <Label Content="Максимум:"/>
-                <TextBox x:Name="MaxRangeTextBox" Width="100" TextWrapping="Wrap"/>
             </StackPanel>
 
             <StackPanel Margin="10">
