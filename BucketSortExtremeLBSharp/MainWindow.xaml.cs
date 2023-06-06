@@ -86,7 +86,7 @@ public partial class MainWindow : Window
                 times.Add(watch.Elapsed.TotalMilliseconds);
             }
 
-            var plotModel = new PlotModel { Title = "Bucket Sort Performance" };
+            var plotModel = new PlotModel { Title = "Производительность Bucket Sort" };
 
             var series = new LineSeries
             {
