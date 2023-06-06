@@ -71,6 +71,8 @@ public partial class MainWindow : Window
             var inputSizes = new List<int> { 100, 500, 1000, 5000, 10000, 50000, 100000 };
             var times = new List<double>();
 
+            var testBucketSort = new BucketSort(1, 1, 1);
+
             foreach (var size in inputSizes)
             {
                 var numbers = new List<double>();
@@ -81,7 +83,7 @@ public partial class MainWindow : Window
                 }
 
                 var watch = Stopwatch.StartNew();
-                var sortedList = bucketSort.Sort(numbers, false);
+                var sortedList = testBucketSort.Sort(numbers, false);
                 watch.Stop();
 
                 times.Add(watch.Elapsed.TotalMilliseconds);
