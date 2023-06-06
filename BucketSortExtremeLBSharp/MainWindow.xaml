@@ -56,9 +56,9 @@
 
             <StackPanel Margin="10">
                 <Label Content="Input:"/>
-                <TextBox x:Name="InputTextBox" TextWrapping="Wrap" Height="200"/>
+                <ListBox x:Name="InputListBox" Height="200"/>
                 <Label Content="Output:"/>
-                <TextBox x:Name="OutputTextBox" TextWrapping="Wrap" Height="200"/>
+                <ListBox x:Name="OutputListBox" Height="200"/>
             </StackPanel>
 
             <oxy:PlotView x:Name="plotView" Grid.Column="1" />

@@ -39,7 +39,7 @@ public partial class MainWindow : Window
                 numbers.Add(bucketSort.FInverse(u));
             }
 
-            InputTextBox.Text = string.Join(",", numbers);
+            InputListBox.ItemsSource = numbers;
         }
         catch (Exception ex)
         {
@@ -51,11 +51,11 @@ public partial class MainWindow : Window
     {
         try
         {
-            var input = new List<double>(Array.ConvertAll(InputTextBox.Text.Split(','), double.Parse));
+            var input = new List<double>((IEnumerable<double>)InputListBox.ItemsSource);
             var descending = DescendingCheckBox.IsChecked ?? false;
             var sortedList = bucketSort.Sort(input, descending);
 
-            OutputTextBox.Text = string.Join(",", sortedList);
+            OutputListBox.ItemsSource = sortedList;
         }
         catch (Exception ex)
         {
