@@ -1,4 +1,5 @@
 ﻿using OxyPlot;
+using OxyPlot.Axes;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            OutputTextBox.Text = $"Error: {ex.Message}";
+            MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -59,7 +60,7 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            OutputTextBox.Text = $"Error: {ex.Message}";
+            MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -88,6 +89,9 @@ public partial class MainWindow : Window
 
             var plotModel = new PlotModel { Title = "Производительность Bucket Sort" };
 
+            plotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "Размер входных данных" });
+            plotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Время (мс)" });
+
             var series = new LineSeries
             {
                 MarkerType = MarkerType.Circle,
@@ -105,7 +109,7 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            OutputTextBox.Text = $"Error: {ex.Message}";
+            MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
