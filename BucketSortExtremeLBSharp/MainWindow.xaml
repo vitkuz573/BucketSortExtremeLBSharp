@@ -46,6 +46,16 @@
             <StackPanel Margin="10">
                 <Button x:Name="PerformanceTestButton" Content="Тест производительности" Width="150" Click="PerformanceTestButton_Click"/>
             </StackPanel>
+
+            <StackPanel Margin="10">
+                <Label Content="Сравнения:"/>
+                <TextBox x:Name="ComparisonCountTextBox" Width="100" IsReadOnly="True"/>
+            </StackPanel>
+
+            <StackPanel Margin="10">
+                <Label Content="Перестановки:"/>
+                <TextBox x:Name="SwapCountTextBox" Width="100" IsReadOnly="True"/>
+            </StackPanel>
         </StackPanel>
 
         <Grid Grid.Row="1">

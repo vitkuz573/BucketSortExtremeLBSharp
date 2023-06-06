@@ -9,6 +9,10 @@ public class BucketSort
     private readonly double B;
     private readonly double C;
 
+    public int ComparisonCount { get; private set; }
+
+    public int SwapCount { get; private set; }
+
     public BucketSort(double A, double B, double C)
     {
         this.A = A;
@@ -39,7 +43,7 @@ public class BucketSort
 
         for (int i = 0; i < n; i++)
         {
-            int bucketIndex = (int)(F(input[i]) * n);
+            var bucketIndex = (int)(F(input[i]) * n);
 
             if (bucketIndex >= n)
             {
@@ -51,11 +55,11 @@ public class BucketSort
 
         for (int i = 0; i <= n; i++)
         {
-            buckets[i]?.Sort();
-
-            if (descending)
+            if (buckets[i] != null && buckets[i].Count > 1)
             {
-                buckets[i]?.Reverse();
+                buckets[i] = CustomSort(buckets[i], descending, out int localComparisonCount, out int localSwapCount);
+                ComparisonCount += localComparisonCount;
+                SwapCount += localSwapCount;
             }
         }
 
@@ -83,5 +87,28 @@ public class BucketSort
         }
 
         return sortedList;
+    }
+
+    public static List<double> CustomSort(List<double> list, bool descending, out int comparisonCount, out int swapCount)
+    {
+        comparisonCount = 0;
+        swapCount = 0;
+
+        for (int i = 0; i < list.Count - 1; i++)
+        {
+            for (int j = i + 1; j < list.Count; j++)
+            {
+                comparisonCount++;
+
+                if ((descending && list[i] < list[j]) || (!descending && list[i] > list[j]))
+                {
+                    swapCount++;
+
+                    (list[j], list[i]) = (list[i], list[j]);
+                }
+            }
+        }
+
+        return list;
     }
 }

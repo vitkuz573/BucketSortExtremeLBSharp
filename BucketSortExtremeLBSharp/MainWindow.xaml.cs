@@ -56,6 +56,8 @@ public partial class MainWindow : Window
             var sortedList = bucketSort.Sort(input, descending);
 
             OutputListBox.ItemsSource = sortedList;
+            ComparisonCountTextBox.Text = bucketSort.ComparisonCount.ToString();
+            SwapCountTextBox.Text = bucketSort.SwapCount.ToString();
         }
         catch (Exception ex)
         {
