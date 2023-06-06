@@ -1,0 +1,38 @@
+﻿<Window x:Class="BucketSortExtremeLBSharp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BucketSortExtremeLBSharp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="514" Width="928">
+    <Grid>
+        <Label Content="A:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ATextBox" HorizontalAlignment="Left" Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+
+        <Label Content="B:" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="BTextBox" HorizontalAlignment="Left" Margin="120,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+
+        <Label Content="C:" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="CTextBox" HorizontalAlignment="Left" Margin="210,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+
+        <Label Content="Array Size:" HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="SizeTextBox" HorizontalAlignment="Left" Margin="350,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+
+        <Label Content="Min Range:" HorizontalAlignment="Left" Margin="460,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="MinRangeTextBox" HorizontalAlignment="Left" Margin="540,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+
+        <Label Content="Max Range:" HorizontalAlignment="Left" Margin="650,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="MaxRangeTextBox" HorizontalAlignment="Left" Margin="730,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+
+        <Button x:Name="GenerateButton" Content="Generate" HorizontalAlignment="Left" Margin="840,10,0,0" VerticalAlignment="Top" Width="75" Click="GenerateButton_Click"/>
+
+        <TextBox x:Name="InputTextBox" HorizontalAlignment="Left" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="760" Height="200"/>
+
+        <CheckBox x:Name="DescendingCheckBox" Content="Sort Descending" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top"/>
+
+        <Button x:Name="SortButton" Content="Sort" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top" Width="75" Click="SortButton_Click"/>
+
+        <TextBox x:Name="OutputTextBox" HorizontalAlignment="Left" Margin="10,305,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="760" Height="200"/>
+    </Grid>
+</Window>
