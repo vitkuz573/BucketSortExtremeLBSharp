@@ -31,6 +31,7 @@ public class BucketSort
         var n = input.Count;
 
         var buckets = new List<List<double>>(n);
+
         for (int i = 0; i < n; i++)
         {
             buckets.Add(new List<double>());
@@ -51,6 +52,7 @@ public class BucketSort
         for (int i = 0; i < n; i++)
         {
             buckets[i]?.Sort();
+
             if (descending)
             {
                 buckets[i]?.Reverse();

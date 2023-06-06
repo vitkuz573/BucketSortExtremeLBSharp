@@ -7,7 +7,7 @@ namespace BucketSortExtremeLBSharp;
 public partial class MainWindow : Window
 {
     private BucketSort bucketSort;
-    private Random random;
+    private readonly Random random;
 
     public MainWindow()
     {
@@ -19,17 +19,18 @@ public partial class MainWindow : Window
     {
         try
         {
-            double A = Convert.ToDouble(ATextBox.Text);
-            double B = Convert.ToDouble(BTextBox.Text);
-            double C = Convert.ToDouble(CTextBox.Text);
+            var A = Convert.ToDouble(ATextBox.Text);
+            var B = Convert.ToDouble(BTextBox.Text);
+            var C = Convert.ToDouble(CTextBox.Text);
 
             bucketSort = new BucketSort(A, B, C);
 
-            int size = Convert.ToInt32(SizeTextBox.Text);
-            double minRange = Convert.ToDouble(MinRangeTextBox.Text);
-            double maxRange = Convert.ToDouble(MaxRangeTextBox.Text);
+            var size = Convert.ToInt32(SizeTextBox.Text);
+            var minRange = Convert.ToDouble(MinRangeTextBox.Text);
+            var maxRange = Convert.ToDouble(MaxRangeTextBox.Text);
 
-            List<double> numbers = new List<double>();
+            var numbers = new List<double>();
+
             for (int i = 0; i < size; i++)
             {
                 numbers.Add(Math.Round(minRange + (random.NextDouble() * (maxRange - minRange))));
@@ -47,9 +48,10 @@ public partial class MainWindow : Window
     {
         try
         {
-            List<double> input = new List<double>(Array.ConvertAll(InputTextBox.Text.Split(','), double.Parse));
-            bool descending = DescendingCheckBox.IsChecked ?? false;
-            List<double> sortedList = bucketSort.Sort(input, descending);
+            var input = new List<double>(Array.ConvertAll(InputTextBox.Text.Split(','), double.Parse));
+            var descending = DescendingCheckBox.IsChecked ?? false;
+            var sortedList = bucketSort.Sort(input, descending);
+
             OutputTextBox.Text = string.Join(",", sortedList);
         }
         catch (Exception ex)
