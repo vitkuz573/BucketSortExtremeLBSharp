@@ -30,9 +30,9 @@ public class BucketSort
     {
         var n = input.Count;
 
-        var buckets = new List<List<double>>(n);
+        var buckets = new List<List<double>>(n + 1);
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i <= n; i++)
         {
             buckets.Add(new List<double>());
         }
@@ -41,15 +41,15 @@ public class BucketSort
         {
             int bucketIndex = (int)(F(input[i]) * n);
 
-            if (bucketIndex == n)
+            if (bucketIndex >= n)
             {
-                bucketIndex--;
+                bucketIndex = n;
             }
 
             buckets[bucketIndex].Add(input[i]);
         }
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i <= n; i++)
         {
             buckets[i]?.Sort();
 
@@ -63,7 +63,7 @@ public class BucketSort
 
         if (descending)
         {
-            for (int i = n - 1; i >= 0; i--)
+            for (int i = n; i >= 0; i--)
             {
                 if (buckets[i] != null)
                 {
@@ -73,7 +73,7 @@ public class BucketSort
         }
         else
         {
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i <= n; i++)
             {
                 if (buckets[i] != null)
                 {
