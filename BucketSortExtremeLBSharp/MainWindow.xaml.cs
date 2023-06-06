@@ -1,5 +1,8 @@
-﻿using System;
+﻿using OxyPlot;
+using OxyPlot.Series;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 
 namespace BucketSortExtremeLBSharp;
@@ -53,6 +56,52 @@ public partial class MainWindow : Window
             var sortedList = bucketSort.Sort(input, descending);
 
             OutputTextBox.Text = string.Join(",", sortedList);
+        }
+        catch (Exception ex)
+        {
+            OutputTextBox.Text = $"Error: {ex.Message}";
+        }
+    }
+
+    private void PerformanceTestButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var inputSizes = new List<int> { 100, 500, 1000, 5000, 10000, 50000, 100000 };
+            var times = new List<double>();
+
+            foreach (var size in inputSizes)
+            {
+                var numbers = new List<double>();
+
+                for (int i = 0; i < size; i++)
+                {
+                    numbers.Add(Math.Round(random.NextDouble() * 100));
+                }
+
+                var watch = Stopwatch.StartNew();
+                var sortedList = bucketSort.Sort(numbers, false);
+                watch.Stop();
+
+                times.Add(watch.Elapsed.TotalMilliseconds);
+            }
+
+            var plotModel = new PlotModel { Title = "Bucket Sort Performance" };
+
+            var series = new LineSeries
+            {
+                MarkerType = MarkerType.Circle,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.White
+            };
+
+            for (int i = 0; i < inputSizes.Count; i++)
+            {
+                series.Points.Add(new DataPoint(inputSizes[i], times[i]));
+            }
+
+            plotModel.Series.Add(series);
+            plotView.Model = plotModel;
         }
         catch (Exception ex)
         {

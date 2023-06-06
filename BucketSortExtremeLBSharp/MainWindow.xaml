@@ -3,35 +3,73 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="514" Width="928">
+        Title="MainWindow" Height="800" Width="1000">
+
     <Grid>
-        <Label Content="A:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ATextBox" HorizontalAlignment="Left" Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <Label Content="B:" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="BTextBox" HorizontalAlignment="Left" Margin="120,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <StackPanel Margin="10">
+                <Label Content="A:"/>
+                <TextBox x:Name="ATextBox" Width="150" TextWrapping="Wrap"/>
+            </StackPanel>
 
-        <Label Content="C:" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="CTextBox" HorizontalAlignment="Left" Margin="210,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+            <StackPanel Margin="10">
+                <Label Content="B:"/>
+                <TextBox x:Name="BTextBox" Width="150" TextWrapping="Wrap"/>
+            </StackPanel>
 
-        <Label Content="Размер:" HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="SizeTextBox" HorizontalAlignment="Left" Margin="350,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+            <StackPanel Margin="10">
+                <Label Content="C:"/>
+                <TextBox x:Name="CTextBox" Width="150" TextWrapping="Wrap"/>
+            </StackPanel>
+        </StackPanel>
 
-        <Label Content="Минимум:" HorizontalAlignment="Left" Margin="460,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="MinRangeTextBox" HorizontalAlignment="Left" Margin="540,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <StackPanel Margin="10">
+                <Label Content="Размер:"/>
+                <TextBox x:Name="SizeTextBox" Width="150" TextWrapping="Wrap"/>
+            </StackPanel>
 
-        <Label Content="Максимум:" HorizontalAlignment="Left" Margin="650,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="MaxRangeTextBox" HorizontalAlignment="Left" Margin="730,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
+            <StackPanel Margin="10">
+                <Label Content="Минимум:"/>
+                <TextBox x:Name="MinRangeTextBox" Width="150" TextWrapping="Wrap"/>
+            </StackPanel>
 
-        <Button x:Name="GenerateButton" Content="Сгенерировать" HorizontalAlignment="Left" Margin="840,10,0,0" VerticalAlignment="Top" Width="75" Click="GenerateButton_Click"/>
+            <StackPanel Margin="10">
+                <Label Content="Максимум:"/>
+                <TextBox x:Name="MaxRangeTextBox" Width="150" TextWrapping="Wrap"/>
+            </StackPanel>
+        </StackPanel>
 
-        <TextBox x:Name="InputTextBox" HorizontalAlignment="Left" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="760" Height="200"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10">
+            <Button x:Name="GenerateButton" Content="Сгенерировать" Width="150" Margin="10"/>
+            <CheckBox x:Name="DescendingCheckBox" Content="По убыванию" Margin="10"/>
+            <Button x:Name="SortButton" Content="Сортировать" Width="150" Margin="10"/>
+            <Button x:Name="PerformanceTestButton" Content="Тест производительности" Width="200" Margin="10"/>
+        </StackPanel>
 
-        <CheckBox x:Name="DescendingCheckBox" Content="По убыванию" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
 
-        <Button x:Name="SortButton" Content="Сортировать" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top" Width="75" Click="SortButton_Click"/>
+            <StackPanel Grid.Column="0" Margin="10">
+                <Label Content="Input:"/>
+                <TextBox x:Name="InputTextBox" TextWrapping="Wrap" Height="300"/>
+                <Label Content="Output:" Margin="0,10,0,0"/>
+                <TextBox x:Name="OutputTextBox" TextWrapping="Wrap" Height="300"/>
+            </StackPanel>
 
-        <TextBox x:Name="OutputTextBox" HorizontalAlignment="Left" Margin="10,305,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="760" Height="200"/>
+            <oxy:PlotView x:Name="plotView" Grid.Column="1" Margin="10"/>
+        </Grid>
     </Grid>
 </Window>
