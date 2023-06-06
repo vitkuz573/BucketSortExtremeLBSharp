@@ -92,8 +92,26 @@ public partial class MainWindow : Window
 
             var plotModel = new PlotModel { Title = "Производительность Bucket Sort" };
 
-            plotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "Размер входных данных" });
-            plotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Время (мс)" });
+            var xAxis = new LinearAxis
+            {
+                Position = AxisPosition.Bottom,
+                Title = "Размер входных данных",
+                MajorGridlineStyle = LineStyle.Solid,
+                MajorGridlineColor = OxyColors.LightGray,
+                MajorGridlineThickness = 1
+            };
+
+            var yAxis = new LinearAxis
+            {
+                Position = AxisPosition.Left,
+                Title = "Время (мс)",
+                MajorGridlineStyle = LineStyle.Solid,
+                MajorGridlineColor = OxyColors.LightGray,
+                MajorGridlineThickness = 1
+            };
+
+            plotModel.Axes.Add(xAxis);
+            plotModel.Axes.Add(yAxis);
 
             var series = new LineSeries
             {
