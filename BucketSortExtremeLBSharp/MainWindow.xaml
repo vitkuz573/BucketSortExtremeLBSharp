@@ -35,16 +35,16 @@
             </StackPanel>
 
             <StackPanel Margin="10">
-                <Button x:Name="GenerateButton" Content="Сгенерировать" Width="100" Click="GenerateButton_Click"/>
-            </StackPanel>
-
-            <StackPanel Margin="10">
                 <CheckBox x:Name="DescendingCheckBox" Content="По убыванию"/>
-                <Button x:Name="SortButton" Content="Сортировать" Width="100" Click="SortButton_Click"/>
+                <Button x:Name="SortButton" Content="Отсортировать" Width="100" Click="GenerateAndSortButton_Click"/>
             </StackPanel>
 
             <StackPanel Margin="10">
                 <Button x:Name="PerformanceTestButton" Content="Тест производительности" Width="150" Click="PerformanceTestButton_Click"/>
+            </StackPanel>
+
+            <StackPanel Margin="10">
+                <Button x:Name="ClearButton" Content="Очистить все" Width="150" Click="ClearButton_Click"/>
             </StackPanel>
 
             <StackPanel Margin="10">
@@ -66,9 +66,26 @@
 
             <StackPanel Margin="10">
                 <Label Content="Исходный массив:"/>
-                <ListBox x:Name="InputListBox" Height="200"/>
+
+                <ListView x:Name="InputListBox" Height="200">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Индекс" Width="50" DisplayMemberBinding="{Binding Index}"/>
+                            <GridViewColumn Header="Значение" Width="100" DisplayMemberBinding="{Binding Value}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
                 <Label Content="Отсортированный массив:"/>
-                <ListBox x:Name="OutputListBox" Height="200"/>
+
+                <ListView x:Name="OutputListBox" Height="200">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Индекс" Width="50" DisplayMemberBinding="{Binding Index}"/>
+                            <GridViewColumn Header="Значение" Width="100" DisplayMemberBinding="{Binding Value}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </StackPanel>
 
             <oxy:PlotView x:Name="plotView" Grid.Column="1" />

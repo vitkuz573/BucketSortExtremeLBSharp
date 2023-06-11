@@ -4,6 +4,7 @@ using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 
 namespace BucketSortExtremeLBSharp;
@@ -20,7 +21,7 @@ public partial class MainWindow : Window
         _random = new Random();
     }
 
-    private void GenerateButton_Click(object sender, RoutedEventArgs e)
+    private void GenerateAndSortButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -40,23 +41,14 @@ public partial class MainWindow : Window
                 numbers.Add(_bucketSort.FInverse(u));
             }
 
-            InputListBox.ItemsSource = numbers;
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
+            InputListBox.ItemsSource = numbers.Select((value, index) => new { Index = index, Value = value });
 
-    private void SortButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var input = new List<double>((IEnumerable<double>)InputListBox.ItemsSource);
+            var input = ((IEnumerable<dynamic>)InputListBox.ItemsSource).Select(item => (double)item.Value).ToList();
+
             var descending = DescendingCheckBox.IsChecked ?? false;
             var sortedList = _bucketSort.Sort(input, descending);
 
-            OutputListBox.ItemsSource = sortedList;
+            OutputListBox.ItemsSource = sortedList.Select((value, index) => new { Index = index, Value = value });
             ComparisonCountTextBox.Text = _bucketSort.ComparisonCount.ToString();
             SwapCountTextBox.Text = _bucketSort.SwapCount.ToString();
         }
@@ -114,7 +106,7 @@ public partial class MainWindow : Window
             plotModel.Axes.Add(xAxis);
             plotModel.Axes.Add(yAxis);
 
-            var series = new LineSeries
+            var series = new ScatterSeries
             {
                 MarkerType = MarkerType.Circle,
                 MarkerSize = 4,
@@ -123,7 +115,7 @@ public partial class MainWindow : Window
 
             for (int i = 0; i < inputSizes.Count; i++)
             {
-                series.Points.Add(new DataPoint(inputSizes[i], times[i]));
+                series.Points.Add(new ScatterPoint(inputSizes[i], times[i]));
             }
 
             plotModel.Series.Add(series);
@@ -133,5 +125,19 @@ public partial class MainWindow : Window
         {
             MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+
+    private void ClearButton_Click(object sender, RoutedEventArgs e)
+    {
+        ATextBox.Clear();
+        BTextBox.Clear();
+        CTextBox.Clear();
+        SizeTextBox.Clear();
+        DescendingCheckBox.IsChecked = false;
+        InputListBox.ItemsSource = null;
+        OutputListBox.ItemsSource = null;
+        ComparisonCountTextBox.Clear();
+        SwapCountTextBox.Clear();
+        plotView.Model = null;
     }
 }
