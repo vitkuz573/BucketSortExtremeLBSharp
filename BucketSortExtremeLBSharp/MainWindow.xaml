@@ -8,6 +8,24 @@
         Title="Bucket Sort Extreme" Height="600" Width="800">
     <Grid Margin="10">
         <TabControl>
+            <TabItem Header="Обзор">
+                <StackPanel Margin="10">
+                    <TextBlock TextWrapping="WrapWithOverflow">
+                        <Run FontWeight="Bold" Text="Алгоритм Bucket Sort:"/><LineBreak/><LineBreak/>
+                        <Run Text="Bucket Sort, или сортировка ведрами, - это сортировочный алгоритм, который делит набор элементов на определенное количество ведер, затем сортирует каждое ведро отдельно. Каждое из отсортированных ведер затем объединяется для получения отсортированного массива."/><LineBreak/><LineBreak/>
+                        <Run Text="Это хорошо работает, когда входные данные равномерно распределены по диапазону. Эффективность Bucket Sort напрямую зависит от этого распределения."/><LineBreak/><LineBreak/>
+                    </TextBlock>
+                    <TextBlock Margin="0,20,0,0" TextWrapping="WrapWithOverflow">
+                        <Run FontWeight="Bold" Text="Функция F(x):"/><LineBreak/><LineBreak/>
+                        <Run Text="F(x) = e^(-(x - A) / B) ^ -C"/><LineBreak/><LineBreak/>
+                    </TextBlock>
+                    <TextBlock TextWrapping="WrapWithOverflow">
+                        <Run FontWeight="Bold" Text="Обратная функция F^-1(u):"/><LineBreak/><LineBreak/>
+                        <Run Text="F^-1(u) = A + B * (-log(u))^(-1/C)"/>
+                    </TextBlock>
+                </StackPanel>
+            </TabItem>
+
             <TabItem Header="Bucket Sort">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
@@ -21,7 +39,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Parameter input -->
-                    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Parameters">
+                    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Параметры">
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <Label Content="A:"/>
                             <TextBox Width="60" Margin="5" Name="ATextBox" />
@@ -29,52 +47,52 @@
                             <TextBox Width="60" Margin="5" Name="BTextBox" />
                             <Label Content="C:"/>
                             <TextBox Width="60" Margin="5" Name="CTextBox" />
-                            <Label Content="Size:"/>
+                            <Label Content="Размер:"/>
                             <TextBox Width="60" Margin="5" Name="SizeTextBox" />
-                            <CheckBox Margin="5" Name="DescendingCheckBox" Content="Descending" />
-                            <Button Width="120" Margin="5" Name="GenerateAndSortButton" Content="Generate and Sort" Click="GenerateAndSortButton_Click"/>
+                            <CheckBox Margin="5" Name="DescendingCheckBox" Content="Убывающий" />
+                            <Button Width="120" Margin="5" Name="GenerateAndSortButton" Content="Сгенерировать и Сортировать" Click="GenerateAndSortButton_Click"/>
                         </StackPanel>
                     </GroupBox>
 
                     <!-- Input list -->
-                    <GroupBox Grid.Row="1" Grid.Column="0" Header="Input">
+                    <GroupBox Grid.Row="1" Grid.Column="0" Header="Ввод">
                         <ListView Name="InputListView">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Index}" />
-                                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" />
+                                    <GridViewColumn Header="Индекс" DisplayMemberBinding="{Binding Index}" />
+                                    <GridViewColumn Header="Значение" DisplayMemberBinding="{Binding Value}" />
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </GroupBox>
 
                     <!-- Output list -->
-                    <GroupBox Grid.Row="1" Grid.Column="1" Header="Output">
+                    <GroupBox Grid.Row="1" Grid.Column="1" Header="Вывод">
                         <ListView Name="OutputListView">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Index}" />
-                                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" />
+                                    <GridViewColumn Header="Индекс" DisplayMemberBinding="{Binding Index}" />
+                                    <GridViewColumn Header="Значение" DisplayMemberBinding="{Binding Value}" />
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </GroupBox>
 
                     <!-- Result information -->
-                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Result">
+                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Результат">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <Label Content="Comparisons:"/>
+                            <Label Content="Сравнения:"/>
                             <TextBox Width="100" Margin="5" Name="ComparisonCountTextBox" IsReadOnly="True" />
-                            <Label Content="Swaps:"/>
+                            <Label Content="Перестановки:"/>
                             <TextBox Width="100" Margin="5" Name="SwapCountTextBox" IsReadOnly="True" />
-                            <Label Content="Elapsed Time:"/>
+                            <Label Content="Затраченное время:"/>
                             <TextBox Width="100" Margin="5" Name="ElapsedTimeTextBox" IsReadOnly="True" />
                         </StackPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Performance Test">
+            <TabItem Header="Тест производительности">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -82,16 +100,16 @@
                     </Grid.RowDefinitions>
 
                     <!-- Performance test -->
-                    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Performance Test">
+                    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Тест производительности">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <Label Content="Test Count:"/>
+                            <Label Content="Количество тестов:"/>
                             <TextBox Width="60" Margin="5" Name="TestCountTextBox" />
-                            <Button Width="120" Margin="5" Name="RunPerformanceTestButton" Content="Run Test" Click="RunPerformanceTestButton_Click" />
+                            <Button Width="120" Margin="5" Name="RunPerformanceTestButton" Content="Запустить тест" Click="RunPerformanceTestButton_Click" />
                         </StackPanel>
                     </GroupBox>
 
                     <!-- Performance plot -->
-                    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Performance Plot">
+                    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="График производительности">
                         <oxy:PlotView x:Name="PerformanceTestPlot" />
                     </GroupBox>
                 </Grid>
