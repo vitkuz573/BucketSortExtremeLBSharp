@@ -97,6 +97,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <!-- Performance test -->
@@ -111,6 +112,22 @@
                     <!-- Performance plot -->
                     <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="График производительности">
                         <oxy:PlotView x:Name="PerformanceTestPlot" />
+                    </GroupBox>
+
+                    <!-- Performance table -->
+                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Таблица производительности">
+                        <ListView Name="PerformanceTestListView">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Номер теста" DisplayMemberBinding="{Binding TestNumber}" />
+                                    <GridViewColumn Header="Коэффициент A" DisplayMemberBinding="{Binding CoefficientA}" />
+                                    <GridViewColumn Header="Коэффициент B" DisplayMemberBinding="{Binding CoefficientB}" />
+                                    <GridViewColumn Header="Коэффициент C" DisplayMemberBinding="{Binding CoefficientC}" />
+                                    <GridViewColumn Header="Размер массива" DisplayMemberBinding="{Binding ArraySize}" />
+                                    <GridViewColumn Header="Направление сортировки" DisplayMemberBinding="{Binding SortDirection}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </GroupBox>
                 </Grid>
             </TabItem>

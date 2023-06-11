@@ -5,9 +5,11 @@ namespace BucketSortExtremeLBSharp;
 
 public class BucketSort
 {
-    private readonly double A;
-    private readonly double B;
-    private readonly double C;
+    public double A { get; set; }
+
+    public double B { get; set; }
+    
+    public double C { get; set; }
 
     public int ComparisonCount { get; private set; }
 

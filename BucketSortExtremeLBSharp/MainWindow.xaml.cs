@@ -68,6 +68,7 @@ public partial class MainWindow : Window
         {
             int testCount = Convert.ToInt32(TestCountTextBox.Text);
             var inputSizes = new List<int>();
+            var performanceResults = new List<PerformanceTestResult>();
 
             for (int i = 0; i < testCount; i++)
             {
@@ -88,11 +89,24 @@ public partial class MainWindow : Window
                 }
 
                 var watch = Stopwatch.StartNew();
+                var descending = DescendingCheckBox.IsChecked ?? false;
                 var sortedList = testBucketSort.Sort(numbers, false);
                 watch.Stop();
 
                 times.Add(watch.Elapsed.TotalMilliseconds);
+
+                performanceResults.Add(new PerformanceTestResult
+                {
+                    TestNumber = performanceResults.Count + 1,
+                    CoefficientA = testBucketSort.A,
+                    CoefficientB = testBucketSort.B,
+                    CoefficientC = testBucketSort.C,
+                    ArraySize = size,
+                    SortDirection = descending ? "Убывание" : "Возрастание"
+                });
             }
+
+            PerformanceTestListView.ItemsSource = performanceResults;
 
             var plotModel = new PlotModel { Title = "Производительность Bucket Sort" };
 
