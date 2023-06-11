@@ -62,93 +62,155 @@ public partial class MainWindow : Window
         }
     }
 
-    private void RunPerformanceTestButton_Click(object sender, RoutedEventArgs e)
+    private void RunPerformanceTestAndRegressionAnalysisButton_Click(object sender, RoutedEventArgs e)
+    {
+        // 1. Performance Test
+        RunPerformanceTest();
+
+        // 2. Regression Analysis
+        PerformRegressionAnalysis();
+    }
+
+    private void RunPerformanceTest()
     {
         try
         {
-            int testCount = Convert.ToInt32(TestCountTextBox.Text);
-            var inputSizes = new List<int>();
-            var performanceResults = new List<PerformanceTestResult>();
-
-            for (int i = 0; i < testCount; i++)
+            try
             {
-                inputSizes.Add(_random.Next(100, 50001));
-            }
+                int testCount = Convert.ToInt32(TestCountTextBox.Text);
+                var inputSizes = new List<int>();
+                var performanceResults = new List<PerformanceTestResult>();
 
-            var times = new List<double>();
-
-            var testBucketSort = new BucketSort(1, 1, 1);
-
-            foreach (var size in inputSizes)
-            {
-                var numbers = new List<double>();
-
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < testCount; i++)
                 {
-                    numbers.Add(Math.Round(_random.NextDouble() * 100));
+                    inputSizes.Add(_random.Next(100, 50001));
                 }
 
-                var watch = Stopwatch.StartNew();
-                var descending = DescendingCheckBox.IsChecked ?? false;
-                var sortedList = testBucketSort.Sort(numbers, false);
-                watch.Stop();
+                var times = new List<double>();
 
-                times.Add(watch.Elapsed.TotalMilliseconds);
+                var testBucketSort = new BucketSort(1, 1, 1);
 
-                performanceResults.Add(new PerformanceTestResult
+                foreach (var size in inputSizes)
                 {
-                    TestNumber = performanceResults.Count + 1,
-                    CoefficientA = testBucketSort.A,
-                    CoefficientB = testBucketSort.B,
-                    CoefficientC = testBucketSort.C,
-                    ArraySize = size,
-                    SortDirection = descending ? "Убывание" : "Возрастание"
-                });
+                    var numbers = new List<double>();
+
+                    for (int i = 0; i < size; i++)
+                    {
+                        numbers.Add(Math.Round(_random.NextDouble() * 100));
+                    }
+
+                    var watch = Stopwatch.StartNew();
+                    var descending = DescendingCheckBox.IsChecked ?? false;
+                    var sortedList = testBucketSort.Sort(numbers, false);
+                    watch.Stop();
+
+                    times.Add(watch.Elapsed.TotalMilliseconds);
+
+                    performanceResults.Add(new PerformanceTestResult
+                    {
+                        TestNumber = performanceResults.Count + 1,
+                        CoefficientA = testBucketSort.A,
+                        CoefficientB = testBucketSort.B,
+                        CoefficientC = testBucketSort.C,
+                        ArraySize = size,
+                        SortDirection = descending ? "Убывание" : "Возрастание",
+                        Time = watch.Elapsed.TotalMilliseconds
+                    });
+                }
+
+                PerformanceTestListView.ItemsSource = performanceResults;
+
+                var plotModel = new PlotModel();
+
+                var xAxis = new LinearAxis
+                {
+                    Position = AxisPosition.Bottom,
+                    Title = "Размер входных данных",
+                    MajorGridlineStyle = LineStyle.Solid,
+                    MajorGridlineColor = OxyColors.LightGray,
+                    MajorGridlineThickness = 1
+                };
+
+                var yAxis = new LinearAxis
+                {
+                    Position = AxisPosition.Left,
+                    Title = "Время (мс)",
+                    MajorGridlineStyle = LineStyle.Solid,
+                    MajorGridlineColor = OxyColors.LightGray,
+                    MajorGridlineThickness = 1
+                };
+
+                plotModel.Axes.Add(xAxis);
+                plotModel.Axes.Add(yAxis);
+
+                var series = new ScatterSeries
+                {
+                    MarkerType = MarkerType.Circle,
+                    MarkerStroke = OxyColors.Black,
+                    MarkerFill = OxyColors.Red,
+                    MarkerSize = 5,
+                };
+
+                var dataPoints = inputSizes.Select((inputSize, index) => new { InputSize = inputSize, Time = times[index] })
+                                           .OrderBy(dataPoint => dataPoint.InputSize).ToList();
+
+                for (int i = 0; i < dataPoints.Count; i++)
+                {
+                    series.Points.Add(new ScatterPoint(dataPoints[i].InputSize, dataPoints[i].Time));
+                }
+
+                plotModel.Series.Add(series);
+                PerformanceTestPlot.Model = plotModel;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void PerformRegressionAnalysis()
+    {
+        try
+        {
+            var testResults = (IEnumerable<PerformanceTestResult>)PerformanceTestListView.ItemsSource;
+
+            var regressionResults = new List<PerformanceTestResult>();
+
+            foreach (var result in testResults)
+            {
+                var x = result.ArraySize;
+                var y = result.Time;
+                double xSquare = x * x;
+                var xy = x * y;
+
+                var regressionResult = new PerformanceTestResult
+                {
+                    TestNumber = result.TestNumber,
+                    CoefficientA = result.CoefficientA,
+                    CoefficientB = result.CoefficientB,
+                    CoefficientC = result.CoefficientC,
+                    Time = y,
+                    ArraySize = x,
+                    SortDirection = result.SortDirection,
+                    XSquare = xSquare,
+                    XY = xy,
+                    // These are placeholders; you will need to replace these with the actual regression results
+                    Intercept = 0.0,
+                    Slope = 0.0,
+                };
+
+                regressionResults.Add(regressionResult);
             }
 
-            PerformanceTestListView.ItemsSource = performanceResults;
+            PerformanceTestListView.ItemsSource = regressionResults;
 
-            var plotModel = new PlotModel();
-
-            var xAxis = new LinearAxis
-            {
-                Position = AxisPosition.Bottom,
-                Title = "Размер входных данных",
-                MajorGridlineStyle = LineStyle.Solid,
-                MajorGridlineColor = OxyColors.LightGray,
-                MajorGridlineThickness = 1
-            };
-
-            var yAxis = new LinearAxis
-            {
-                Position = AxisPosition.Left,
-                Title = "Время (мс)",
-                MajorGridlineStyle = LineStyle.Solid,
-                MajorGridlineColor = OxyColors.LightGray,
-                MajorGridlineThickness = 1
-            };
-
-            plotModel.Axes.Add(xAxis);
-            plotModel.Axes.Add(yAxis);
-
-            var series = new ScatterSeries
-            {
-                MarkerType = MarkerType.Circle,
-                MarkerStroke = OxyColors.Black,
-                MarkerFill = OxyColors.Red,
-                MarkerSize = 5,
-            };
-
-            var dataPoints = inputSizes.Select((inputSize, index) => new { InputSize = inputSize, Time = times[index] })
-                                       .OrderBy(dataPoint => dataPoint.InputSize).ToList();
-
-            for (int i = 0; i < dataPoints.Count; i++)
-            {
-                series.Points.Add(new ScatterPoint(dataPoints[i].InputSize, dataPoints[i].Time));
-            }
-
-            plotModel.Series.Add(series);
-            PerformanceTestPlot.Model = plotModel;
+            // TODO: Add code to compute the actual regression using a library such as Math.NET Numerics
+            // For example: Tuple<double, double> p = MathNet.Numerics.Fit.Line(arraySizes.ToArray(), times.ToArray());
         }
         catch (Exception ex)
         {
