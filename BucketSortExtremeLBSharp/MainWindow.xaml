@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="Bucket Sort Extreme" Height="600" Width="800" ResizeMode="NoResize">
+        Title="Bucket Sort Extreme" Height="700" Width="950" ResizeMode="NoResize">
     <Grid Margin="10">
         <TabControl>
             <TabItem Header="Обзор">
@@ -50,7 +50,7 @@
                             <Label Content="Размер:"/>
                             <TextBox Width="60" Margin="5" Name="SizeTextBox" />
                             <CheckBox Margin="5" Name="DescendingCheckBox" Content="Убывающий" />
-                            <Button Width="120" Margin="5" Name="GenerateAndSortButton" Content="Сгенерировать и Сортировать" Click="GenerateAndSortButton_Click"/>
+                            <Button Width="120" Margin="5" Name="GenerateAndSortButton" Content="Сортировать" Click="GenerateAndSortButton_Click"/>
                         </StackPanel>
                     </GroupBox>
 
@@ -97,16 +97,20 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
 
                     <!-- Performance test and Regression Analysis -->
                     <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Тест производительности и Анализ регрессии">
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <Label Content="Количество тестов:"/>
                             <TextBox Width="60" Margin="5" Name="TestCountTextBox" />
-                            <Button Width="240" Margin="5" Name="RunPerformanceTestAndRegressionAnalysisButton" Content="Запустить тест и выполнить анализ регрессии" Click="RunPerformanceTestAndRegressionAnalysisButton_Click" />
+                            <Button Width="120" Margin="5" Name="RunPerformanceTestAndRegressionAnalysisButton" Content="Анализ" Click="RunPerformanceTestAndRegressionAnalysisButton_Click" />
                         </StackPanel>
                     </GroupBox>
 
@@ -116,8 +120,8 @@
                     </GroupBox>
 
                     <!-- Performance and regression table -->
-                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Таблица производительности и регрессии">
-                        <ListView Name="PerformanceTestListView" Height="100">
+                    <GroupBox Grid.Row="2" Grid.Column="0" Header="Таблица производительности и регрессии">
+                        <ListView Name="PerformanceTestListView">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="#" DisplayMemberBinding="{Binding Number}" />
@@ -131,17 +135,30 @@
                         </ListView>
                     </GroupBox>
 
-                    <!-- Regression coefficients -->
-                    <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Результаты регрессии">
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <Label Content="Коэффициент корреляции:"/>
-                            <TextBox Width="60" Margin="5" Name="CorrelationCoefficientTextBox" IsReadOnly="True" />
-                            <Label Content="Коэффициент детерминации:"/>
-                            <TextBox Width="60" Margin="5" Name="DeterminationCoefficientTextBox" IsReadOnly="True" />
-                            <Label Content="Коэффициент уравнения связи a0:"/>
-                            <TextBox Width="60" Margin="5" Name="A0CoefficientTextBox" IsReadOnly="True" />
-                            <Label Content="Коэффициент уравнения связи a1:"/>
-                            <TextBox Width="60" Margin="5" Name="A1CoefficientTextBox" IsReadOnly="True" />
+                    <!-- Regression coefficients and equations -->
+                    <!-- Regression coefficients and equations -->
+                    <GroupBox Grid.Row="2" Grid.Column="1" Header="Результаты регрессии">
+                        <StackPanel Orientation="Vertical" Margin="5">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Коэффициент корреляции:"/>
+                                <TextBox Width="60" Margin="5" Name="CorrelationCoefficientTextBox" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Коэффициент детерминации:"/>
+                                <TextBox Width="60" Margin="5" Name="DeterminationCoefficientTextBox" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Коэффициент уравнения связи a0:"/>
+                                <TextBox Width="60" Margin="5" Name="A0CoefficientTextBox" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Коэффициент уравнения связи a1:"/>
+                                <TextBox Width="60" Margin="5" Name="A1CoefficientTextBox" IsReadOnly="True" />
+                            </StackPanel>
+                            <Label Content="Система нормальных уравнений:"/>
+                            <TextBox Width="400" Margin="5" Name="SystemNormalEquationsTextBox" IsReadOnly="True" />
+                            <Label Content="Уравнение связи:"/>
+                            <TextBox Width="400" Margin="5" Name="EquationTextBox" IsReadOnly="True" />
                         </StackPanel>
                     </GroupBox>
                 </Grid>

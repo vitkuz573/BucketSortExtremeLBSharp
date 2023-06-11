@@ -76,7 +76,7 @@ public partial class MainWindow : System.Windows.Window
         {
             try
             {
-                int testCount = Convert.ToInt32(TestCountTextBox.Text);
+                var testCount = Convert.ToInt32(TestCountTextBox.Text);
                 var inputSizes = new List<int>();
                 var performanceResults = new List<PerformanceTestResult>();
 
@@ -93,7 +93,7 @@ public partial class MainWindow : System.Windows.Window
                 {
                     var numbers = new List<double>();
 
-                    for (int i = 0; i < size; i++)
+                    for (var i = 0; i < size; i++)
                     {
                         numbers.Add(Math.Round(_random.NextDouble() * 100));
                     }
@@ -153,7 +153,7 @@ public partial class MainWindow : System.Windows.Window
                 var dataPoints = inputSizes.Select((inputSize, index) => new { InputSize = inputSize, Time = times[index] })
                                            .OrderBy(dataPoint => dataPoint.InputSize).ToList();
 
-                for (int i = 0; i < dataPoints.Count; i++)
+                for (var i = 0; i < dataPoints.Count; i++)
                 {
                     series.Points.Add(new ScatterPoint(dataPoints[i].InputSize, dataPoints[i].Time));
                 }
@@ -184,20 +184,36 @@ public partial class MainWindow : System.Windows.Window
             var arraySizesDouble = arraySizes.Select(i => (double)i).ToArray();
             var timesDouble = times.Select(i => (double)i).ToArray();
 
+            // Определение коэффициентов линейной регрессии
             var (A, B) = Fit.Line(arraySizesDouble, timesDouble);
+
+            // Коэффициент корреляции Пирсона
             var correlationCoefficient = Correlation.Pearson(arraySizesDouble, timesDouble);
 
+            // Коэффициент детерминации
             var determinationCoefficient = Math.Pow(correlationCoefficient, 2);
 
-            var regressionResults = new List<RegressionAnalysisResult>();
+            // Построение системы нормальных уравнений
+            var sumY = timesDouble.Sum();
+            var sumX = arraySizesDouble.Sum();
+            var sumXY = timesDouble.Zip(arraySizesDouble, (t, a) => t * a).Sum();
+            var sumXSquare = arraySizesDouble.Select(a => a * a).Sum();
+            var n = timesDouble.Length;
+
+            SystemNormalEquationsTextBox.Text = $"{sumY} = {n}*a0 + a1*{sumX}\n{sumXY} = a0*{sumX} + a1*{sumXSquare}";
+
+            // Построение уравнения связи
+            EquationTextBox.Text = $"y = {A} + {B}*x";
+
+            var regressionResults = new List<PerformanceTestResult>();
 
             foreach (var result in testResults)
             {
                 var elasticityCoefficient = B * (result.ArraySize / result.Time);
 
-                regressionResults.Add(new RegressionAnalysisResult
+                regressionResults.Add(new PerformanceTestResult
                 {
-                    Number = result.TestNumber,
+                    TestNumber = result.TestNumber,
                     Time = result.Time,
                     ArraySize = result.ArraySize,
                     ArraySizeSquared = Math.Pow(result.ArraySize, 2),

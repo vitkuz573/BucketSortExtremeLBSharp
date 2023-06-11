@@ -1,4 +1,6 @@
-﻿public class PerformanceTestResult
+﻿namespace BucketSortExtremeLBSharp;
+
+public class PerformanceTestResult
 {
     public int TestNumber { get; set; }
 
@@ -13,15 +15,6 @@
     public string SortDirection { get; set; }
 
     public double Time { get; set; }
-}
-
-public class RegressionAnalysisResult
-{
-    public int Number { get; set; }
-
-    public double Time { get; set; }
-
-    public double ArraySize { get; set; }
 
     public double ArraySizeSquared { get; set; }
 
