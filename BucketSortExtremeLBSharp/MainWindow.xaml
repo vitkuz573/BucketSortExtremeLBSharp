@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="Bucket Sort Extreme" Height="600" Width="800">
+        Title="Bucket Sort Extreme" Height="600" Width="800" ResizeMode="NoResize">
     <Grid Margin="10">
         <TabControl>
             <TabItem Header="Обзор">
@@ -117,20 +117,14 @@
 
                     <!-- Performance and regression table -->
                     <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Таблица производительности и регрессии">
-                        <ListView Name="PerformanceTestListView">
+                        <ListView Name="PerformanceTestListView" Height="100">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Номер теста" DisplayMemberBinding="{Binding Number}" />
+                                    <GridViewColumn Header="#" DisplayMemberBinding="{Binding Number}" />
                                     <GridViewColumn Header="Время (y)" DisplayMemberBinding="{Binding Time}" />
-                                    <GridViewColumn Header="Размер массива" DisplayMemberBinding="{Binding ArraySize}" />
-                                    <GridViewColumn Header="Коэффициент A" DisplayMemberBinding="{Binding CoefficientA}" />
-                                    <GridViewColumn Header="Коэффициент B" DisplayMemberBinding="{Binding CoefficientB}" />
-                                    <GridViewColumn Header="Коэффициент C" DisplayMemberBinding="{Binding CoefficientC}" />
-                                    <GridViewColumn Header="Направление сортировки" DisplayMemberBinding="{Binding SortDirection}" />
-                                    <GridViewColumn Header="Прогноз (y_hat)" DisplayMemberBinding="{Binding Forecast}" />
-                                    <GridViewColumn Header="Остатки (e)" DisplayMemberBinding="{Binding Residuals}" />
-                                    <GridViewColumn Header="Сравнения" DisplayMemberBinding="{Binding Comparisons}" />
-                                    <GridViewColumn Header="Перестановки" DisplayMemberBinding="{Binding Swaps}" />
+                                    <GridViewColumn Header="Размер массива (x)" DisplayMemberBinding="{Binding ArraySize}" />
+                                    <GridViewColumn Header="x*x" DisplayMemberBinding="{Binding ArraySizeSquared}" />
+                                    <GridViewColumn Header="x*y" DisplayMemberBinding="{Binding TimeTimesArraySize}" />
                                     <GridViewColumn Header="Коэффициент эластичности" DisplayMemberBinding="{Binding ElasticityCoefficient}" />
                                 </GridView>
                             </ListView.View>
@@ -144,6 +138,10 @@
                             <TextBox Width="60" Margin="5" Name="CorrelationCoefficientTextBox" IsReadOnly="True" />
                             <Label Content="Коэффициент детерминации:"/>
                             <TextBox Width="60" Margin="5" Name="DeterminationCoefficientTextBox" IsReadOnly="True" />
+                            <Label Content="Коэффициент уравнения связи a0:"/>
+                            <TextBox Width="60" Margin="5" Name="A0CoefficientTextBox" IsReadOnly="True" />
+                            <Label Content="Коэффициент уравнения связи a1:"/>
+                            <TextBox Width="60" Margin="5" Name="A1CoefficientTextBox" IsReadOnly="True" />
                         </StackPanel>
                     </GroupBox>
                 </Grid>

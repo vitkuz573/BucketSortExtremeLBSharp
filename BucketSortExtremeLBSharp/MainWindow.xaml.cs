@@ -66,10 +66,7 @@ public partial class MainWindow : System.Windows.Window
 
     private void RunPerformanceTestAndRegressionAnalysisButton_Click(object sender, RoutedEventArgs e)
     {
-        // 1. Performance Test
         RunPerformanceTest();
-
-        // 2. Regression Analysis
         PerformRegressionAnalysis();
     }
 
@@ -184,46 +181,37 @@ public partial class MainWindow : System.Windows.Window
             var arraySizes = testResults.Select(result => result.ArraySize).ToArray();
             var times = testResults.Select(result => result.Time).ToArray();
 
-            double[] arraySizesDouble = arraySizes.Select(i => (double)i).ToArray();
-            double[] timesDouble = times.Select(i => (double)i).ToArray();
+            var arraySizesDouble = arraySizes.Select(i => (double)i).ToArray();
+            var timesDouble = times.Select(i => (double)i).ToArray();
 
             var (A, B) = Fit.Line(arraySizesDouble, timesDouble);
             var correlationCoefficient = Correlation.Pearson(arraySizesDouble, timesDouble);
 
-            // Compute determination coefficient
             var determinationCoefficient = Math.Pow(correlationCoefficient, 2);
 
             var regressionResults = new List<RegressionAnalysisResult>();
 
             foreach (var result in testResults)
             {
-                var forecast = A + B * result.ArraySize;
-                var residuals = result.Time - forecast;
-                var elasticityCoefficient = B * (result.ArraySize / result.Time);  // calculate beta (optionally)
+                var elasticityCoefficient = B * (result.ArraySize / result.Time);
 
                 regressionResults.Add(new RegressionAnalysisResult
                 {
                     Number = result.TestNumber,
-                    CoefficientA = result.CoefficientA,
-                    CoefficientB = result.CoefficientB,
-                    CoefficientC = result.CoefficientC,
-                    SortDirection = result.SortDirection,
                     Time = result.Time,
                     ArraySize = result.ArraySize,
                     ArraySizeSquared = Math.Pow(result.ArraySize, 2),
-                    TimeTimesArraySize = result.Time * result.ArraySize,
-                    Intercept = A,
-                    Slope = B,
-                    Forecast = forecast,
-                    Residuals = residuals,
-                    ElasticityCoefficient = elasticityCoefficient  // assign beta (optionally)
+                    TimeTimesArraySize = Math.Round(result.Time * result.ArraySize, 3),
+                    ElasticityCoefficient = Math.Round(elasticityCoefficient, 3)
                 });
             }
 
-            CorrelationCoefficientTextBox.Text = correlationCoefficient.ToString();
-            DeterminationCoefficientTextBox.Text = determinationCoefficient.ToString();
+            CorrelationCoefficientTextBox.Text = Math.Round(correlationCoefficient, 3).ToString();
+            DeterminationCoefficientTextBox.Text = Math.Round(determinationCoefficient, 3).ToString();
+            A0CoefficientTextBox.Text = Math.Round(A, 3).ToString();
+            A1CoefficientTextBox.Text = Math.Round(B, 3).ToString();
 
-            PerformanceTestListView.ItemsSource = regressionResults;  // Assume you have a ListView for the regression analysis results
+            PerformanceTestListView.ItemsSource = regressionResults;
         }
         catch (Exception ex)
         {
