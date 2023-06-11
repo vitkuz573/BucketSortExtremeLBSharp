@@ -1,4 +1,6 @@
-﻿using OxyPlot;
+﻿using MathNet.Numerics;
+using MathNet.Numerics.Statistics;
+using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using System;
@@ -9,7 +11,7 @@ using System.Windows;
 
 namespace BucketSortExtremeLBSharp;
 
-public partial class MainWindow : Window
+public partial class MainWindow : System.Windows.Window
 {
     private BucketSort _bucketSort;
     private readonly Random _random;
@@ -179,38 +181,49 @@ public partial class MainWindow : Window
         {
             var testResults = (IEnumerable<PerformanceTestResult>)PerformanceTestListView.ItemsSource;
 
-            var regressionResults = new List<PerformanceTestResult>();
+            var arraySizes = testResults.Select(result => result.ArraySize).ToArray();
+            var times = testResults.Select(result => result.Time).ToArray();
+
+            double[] arraySizesDouble = arraySizes.Select(i => (double)i).ToArray();
+            double[] timesDouble = times.Select(i => (double)i).ToArray();
+
+            var (A, B) = Fit.Line(arraySizesDouble, timesDouble);
+            var correlationCoefficient = Correlation.Pearson(arraySizesDouble, timesDouble);
+
+            // Compute determination coefficient
+            var determinationCoefficient = Math.Pow(correlationCoefficient, 2);
+
+            var regressionResults = new List<RegressionAnalysisResult>();
 
             foreach (var result in testResults)
             {
-                var x = result.ArraySize;
-                var y = result.Time;
-                double xSquare = x * x;
-                var xy = x * y;
+                var forecast = A + B * result.ArraySize;
+                var residuals = result.Time - forecast;
+                var elasticityCoefficient = B * (result.ArraySize / result.Time);  // calculate beta (optionally)
 
-                var regressionResult = new PerformanceTestResult
+                regressionResults.Add(new RegressionAnalysisResult
                 {
-                    TestNumber = result.TestNumber,
+                    Number = result.TestNumber,
                     CoefficientA = result.CoefficientA,
                     CoefficientB = result.CoefficientB,
                     CoefficientC = result.CoefficientC,
-                    Time = y,
-                    ArraySize = x,
                     SortDirection = result.SortDirection,
-                    XSquare = xSquare,
-                    XY = xy,
-                    // These are placeholders; you will need to replace these with the actual regression results
-                    Intercept = 0.0,
-                    Slope = 0.0,
-                };
-
-                regressionResults.Add(regressionResult);
+                    Time = result.Time,
+                    ArraySize = result.ArraySize,
+                    ArraySizeSquared = Math.Pow(result.ArraySize, 2),
+                    TimeTimesArraySize = result.Time * result.ArraySize,
+                    Intercept = A,
+                    Slope = B,
+                    Forecast = forecast,
+                    Residuals = residuals,
+                    ElasticityCoefficient = elasticityCoefficient  // assign beta (optionally)
+                });
             }
 
-            PerformanceTestListView.ItemsSource = regressionResults;
+            CorrelationCoefficientTextBox.Text = correlationCoefficient.ToString();
+            DeterminationCoefficientTextBox.Text = determinationCoefficient.ToString();
 
-            // TODO: Add code to compute the actual regression using a library such as Math.NET Numerics
-            // For example: Tuple<double, double> p = MathNet.Numerics.Fit.Line(arraySizes.ToArray(), times.ToArray());
+            PerformanceTestListView.ItemsSource = regressionResults;  // Assume you have a ListView for the regression analysis results
         }
         catch (Exception ex)
         {

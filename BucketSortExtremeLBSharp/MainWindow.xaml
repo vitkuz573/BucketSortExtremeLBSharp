@@ -98,6 +98,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!-- Performance test and Regression Analysis -->
@@ -119,18 +120,31 @@
                         <ListView Name="PerformanceTestListView">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Номер теста" DisplayMemberBinding="{Binding TestNumber}" />
+                                    <GridViewColumn Header="Номер теста" DisplayMemberBinding="{Binding Number}" />
+                                    <GridViewColumn Header="Время (y)" DisplayMemberBinding="{Binding Time}" />
+                                    <GridViewColumn Header="Размер массива" DisplayMemberBinding="{Binding ArraySize}" />
                                     <GridViewColumn Header="Коэффициент A" DisplayMemberBinding="{Binding CoefficientA}" />
                                     <GridViewColumn Header="Коэффициент B" DisplayMemberBinding="{Binding CoefficientB}" />
                                     <GridViewColumn Header="Коэффициент C" DisplayMemberBinding="{Binding CoefficientC}" />
-                                    <GridViewColumn Header="Размер массива" DisplayMemberBinding="{Binding ArraySize}" />
                                     <GridViewColumn Header="Направление сортировки" DisplayMemberBinding="{Binding SortDirection}" />
-                                    <GridViewColumn Header="Время (y)" DisplayMemberBinding="{Binding Time}" />
                                     <GridViewColumn Header="Прогноз (y_hat)" DisplayMemberBinding="{Binding Forecast}" />
                                     <GridViewColumn Header="Остатки (e)" DisplayMemberBinding="{Binding Residuals}" />
+                                    <GridViewColumn Header="Сравнения" DisplayMemberBinding="{Binding Comparisons}" />
+                                    <GridViewColumn Header="Перестановки" DisplayMemberBinding="{Binding Swaps}" />
+                                    <GridViewColumn Header="Коэффициент эластичности" DisplayMemberBinding="{Binding ElasticityCoefficient}" />
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                    </GroupBox>
+
+                    <!-- Regression coefficients -->
+                    <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Результаты регрессии">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Коэффициент корреляции:"/>
+                            <TextBox Width="60" Margin="5" Name="CorrelationCoefficientTextBox" IsReadOnly="True" />
+                            <Label Content="Коэффициент детерминации:"/>
+                            <TextBox Width="60" Margin="5" Name="DeterminationCoefficientTextBox" IsReadOnly="True" />
+                        </StackPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
