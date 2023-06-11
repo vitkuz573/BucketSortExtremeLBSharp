@@ -119,12 +119,12 @@
                         <ListView Name="PerformanceTestListView">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Номер теста" DisplayMemberBinding="{Binding TestNumber}" />
-                                    <GridViewColumn Header="Коэффициент A" DisplayMemberBinding="{Binding CoefficientA}" />
-                                    <GridViewColumn Header="Коэффициент B" DisplayMemberBinding="{Binding CoefficientB}" />
-                                    <GridViewColumn Header="Коэффициент C" DisplayMemberBinding="{Binding CoefficientC}" />
-                                    <GridViewColumn Header="Размер массива" DisplayMemberBinding="{Binding ArraySize}" />
-                                    <GridViewColumn Header="Направление сортировки" DisplayMemberBinding="{Binding SortDirection}" />
+                                    <GridViewColumn Header="Номер теста" DisplayMemberBinding="{Binding TestNumber}" Width="Auto" />
+                                    <GridViewColumn Header="Коэффициент A" DisplayMemberBinding="{Binding CoefficientA}" Width="Auto" />
+                                    <GridViewColumn Header="Коэффициент B" DisplayMemberBinding="{Binding CoefficientB}" Width="Auto" />
+                                    <GridViewColumn Header="Коэффициент C" DisplayMemberBinding="{Binding CoefficientC}" Width="Auto" />
+                                    <GridViewColumn Header="Размер массива" DisplayMemberBinding="{Binding ArraySize}" Width="Auto" />
+                                    <GridViewColumn Header="Направление сортировки" DisplayMemberBinding="{Binding SortDirection}" Width="Auto" />
                                 </GridView>
                             </ListView.View>
                         </ListView>

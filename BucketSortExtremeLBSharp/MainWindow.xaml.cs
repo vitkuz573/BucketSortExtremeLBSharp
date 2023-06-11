@@ -108,7 +108,7 @@ public partial class MainWindow : Window
 
             PerformanceTestListView.ItemsSource = performanceResults;
 
-            var plotModel = new PlotModel { Title = "Производительность Bucket Sort" };
+            var plotModel = new PlotModel();
 
             var xAxis = new LinearAxis
             {
