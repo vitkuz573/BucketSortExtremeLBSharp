@@ -41,16 +41,20 @@ public partial class MainWindow : Window
                 numbers.Add(_bucketSort.FInverse(u));
             }
 
-            InputListBox.ItemsSource = numbers.Select((value, index) => new { Index = index, Value = value });
+            InputListView.ItemsSource = numbers.Select((value, index) => new { Index = index + 1, Value = value });
 
-            var input = ((IEnumerable<dynamic>)InputListBox.ItemsSource).Select(item => (double)item.Value).ToList();
+            var input = ((IEnumerable<dynamic>)InputListView.ItemsSource).Select(item => (double)item.Value).ToList();
 
             var descending = DescendingCheckBox.IsChecked ?? false;
-            var sortedList = _bucketSort.Sort(input, descending);
 
-            OutputListBox.ItemsSource = sortedList.Select((value, index) => new { Index = index, Value = value });
+            var watch = Stopwatch.StartNew();
+            var sortedList = _bucketSort.Sort(input, descending);
+            watch.Stop();
+
+            OutputListView.ItemsSource = sortedList.Select((value, index) => new { Index = index + 1, Value = value });
             ComparisonCountTextBox.Text = _bucketSort.ComparisonCount.ToString();
             SwapCountTextBox.Text = _bucketSort.SwapCount.ToString();
+            ElapsedTimeTextBox.Text = $"{watch.Elapsed.TotalMilliseconds} ms";
         }
         catch (Exception ex)
         {
@@ -58,11 +62,18 @@ public partial class MainWindow : Window
         }
     }
 
-    private void PerformanceTestButton_Click(object sender, RoutedEventArgs e)
+    private void RunPerformanceTestButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            var inputSizes = new List<int> { 100, 5000, 10000, 50000, 100000 };
+            int testCount = Convert.ToInt32(TestCountTextBox.Text);
+            var inputSizes = new List<int>();
+
+            for (int i = 0; i < testCount; i++)
+            {
+                inputSizes.Add(_random.Next(100, 50001));
+            }
+
             var times = new List<double>();
 
             var testBucketSort = new BucketSort(1, 1, 1);
@@ -109,35 +120,25 @@ public partial class MainWindow : Window
             var series = new ScatterSeries
             {
                 MarkerType = MarkerType.Circle,
-                MarkerSize = 4,
-                MarkerStroke = OxyColors.White
+                MarkerStroke = OxyColors.Black,
+                MarkerFill = OxyColors.Red,
+                MarkerSize = 5,
             };
 
-            for (int i = 0; i < inputSizes.Count; i++)
+            var dataPoints = inputSizes.Select((inputSize, index) => new { InputSize = inputSize, Time = times[index] })
+                                       .OrderBy(dataPoint => dataPoint.InputSize).ToList();
+
+            for (int i = 0; i < dataPoints.Count; i++)
             {
-                series.Points.Add(new ScatterPoint(inputSizes[i], times[i]));
+                series.Points.Add(new ScatterPoint(dataPoints[i].InputSize, dataPoints[i].Time));
             }
 
             plotModel.Series.Add(series);
-            plotView.Model = plotModel;
+            PerformanceTestPlot.Model = plotModel;
         }
         catch (Exception ex)
         {
             MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-    }
-
-    private void ClearButton_Click(object sender, RoutedEventArgs e)
-    {
-        ATextBox.Clear();
-        BTextBox.Clear();
-        CTextBox.Clear();
-        SizeTextBox.Clear();
-        DescendingCheckBox.IsChecked = false;
-        InputListBox.ItemsSource = null;
-        OutputListBox.ItemsSource = null;
-        ComparisonCountTextBox.Clear();
-        SwapCountTextBox.Clear();
-        plotView.Model = null;
     }
 }

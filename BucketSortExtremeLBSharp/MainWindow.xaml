@@ -5,90 +5,97 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="Курсовой проект. Алгоритм сортировки Bucket Sort. Закон распределения случайных величин ExtremeLB" Height="600" Width="1200">
+        Title="Bucket Sort Extreme" Height="600" Width="800">
+    <Grid Margin="10">
+        <TabControl>
+            <TabItem Header="Bucket Sort">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="4*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+                    <!-- Parameter input -->
+                    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Parameters">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="A:"/>
+                            <TextBox Width="60" Margin="5" Name="ATextBox" />
+                            <Label Content="B:"/>
+                            <TextBox Width="60" Margin="5" Name="BTextBox" />
+                            <Label Content="C:"/>
+                            <TextBox Width="60" Margin="5" Name="CTextBox" />
+                            <Label Content="Size:"/>
+                            <TextBox Width="60" Margin="5" Name="SizeTextBox" />
+                            <CheckBox Margin="5" Name="DescendingCheckBox" Content="Descending" />
+                            <Button Width="120" Margin="5" Name="GenerateAndSortButton" Content="Generate and Sort" Click="GenerateAndSortButton_Click"/>
+                        </StackPanel>
+                    </GroupBox>
 
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <StackPanel Margin="10">
-                <Label Content="A:"/>
-                <TextBox x:Name="ATextBox" Width="100" TextWrapping="Wrap"/>
-            </StackPanel>
+                    <!-- Input list -->
+                    <GroupBox Grid.Row="1" Grid.Column="0" Header="Input">
+                        <ListView Name="InputListView">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Index}" />
+                                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
 
-            <StackPanel Margin="10">
-                <Label Content="B:"/>
-                <TextBox x:Name="BTextBox" Width="100" TextWrapping="Wrap"/>
-            </StackPanel>
+                    <!-- Output list -->
+                    <GroupBox Grid.Row="1" Grid.Column="1" Header="Output">
+                        <ListView Name="OutputListView">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Index}" />
+                                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
 
-            <StackPanel Margin="10">
-                <Label Content="C:"/>
-                <TextBox x:Name="CTextBox" Width="100" TextWrapping="Wrap"/>
-            </StackPanel>
+                    <!-- Result information -->
+                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Result">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Comparisons:"/>
+                            <TextBox Width="100" Margin="5" Name="ComparisonCountTextBox" IsReadOnly="True" />
+                            <Label Content="Swaps:"/>
+                            <TextBox Width="100" Margin="5" Name="SwapCountTextBox" IsReadOnly="True" />
+                            <Label Content="Elapsed Time:"/>
+                            <TextBox Width="100" Margin="5" Name="ElapsedTimeTextBox" IsReadOnly="True" />
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
 
-            <StackPanel Margin="10">
-                <Label Content="Размер:"/>
-                <TextBox x:Name="SizeTextBox" Width="100" TextWrapping="Wrap"/>
-            </StackPanel>
+            <TabItem Header="Performance Test">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-            <StackPanel Margin="10">
-                <CheckBox x:Name="DescendingCheckBox" Content="По убыванию"/>
-                <Button x:Name="SortButton" Content="Отсортировать" Width="100" Click="GenerateAndSortButton_Click"/>
-            </StackPanel>
+                    <!-- Performance test -->
+                    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Performance Test">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Test Count:"/>
+                            <TextBox Width="60" Margin="5" Name="TestCountTextBox" />
+                            <Button Width="120" Margin="5" Name="RunPerformanceTestButton" Content="Run Test" Click="RunPerformanceTestButton_Click" />
+                        </StackPanel>
+                    </GroupBox>
 
-            <StackPanel Margin="10">
-                <Button x:Name="PerformanceTestButton" Content="Тест производительности" Width="150" Click="PerformanceTestButton_Click"/>
-            </StackPanel>
-
-            <StackPanel Margin="10">
-                <Button x:Name="ClearButton" Content="Очистить все" Width="150" Click="ClearButton_Click"/>
-            </StackPanel>
-
-            <StackPanel Margin="10">
-                <Label Content="Сравнения:"/>
-                <TextBox x:Name="ComparisonCountTextBox" Width="100" IsReadOnly="True"/>
-            </StackPanel>
-
-            <StackPanel Margin="10">
-                <Label Content="Перестановки:"/>
-                <TextBox x:Name="SwapCountTextBox" Width="100" IsReadOnly="True"/>
-            </StackPanel>
-        </StackPanel>
-
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Margin="10">
-                <Label Content="Исходный массив:"/>
-
-                <ListView x:Name="InputListBox" Height="200">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Индекс" Width="50" DisplayMemberBinding="{Binding Index}"/>
-                            <GridViewColumn Header="Значение" Width="100" DisplayMemberBinding="{Binding Value}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-
-                <Label Content="Отсортированный массив:"/>
-
-                <ListView x:Name="OutputListBox" Height="200">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Индекс" Width="50" DisplayMemberBinding="{Binding Index}"/>
-                            <GridViewColumn Header="Значение" Width="100" DisplayMemberBinding="{Binding Value}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </StackPanel>
-
-            <oxy:PlotView x:Name="plotView" Grid.Column="1" />
-        </Grid>
+                    <!-- Performance plot -->
+                    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Performance Plot">
+                        <oxy:PlotView x:Name="PerformanceTestPlot" />
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
