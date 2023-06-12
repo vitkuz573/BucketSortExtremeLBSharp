@@ -228,6 +228,29 @@ public partial class MainWindow : System.Windows.Window
             A1CoefficientTextBox.Text = Math.Round(B, 3).ToString();
 
             PerformanceTestListView.ItemsSource = regressionResults;
+
+            // Find the minimum and maximum x values (input sizes).
+            double minX = arraySizesDouble.Min();
+            double maxX = arraySizesDouble.Max();
+
+            // Create a new LineSeries object for the regression line.
+            var regressionLine = new LineSeries
+            {
+                StrokeThickness = 2,
+                Color = OxyColors.Blue,
+                MarkerSize = 3,
+                CanTrackerInterpolatePoints = false,
+                Title = "Regression Line",
+            };
+
+            // Calculate y (predicted time) for minimum and maximum x values and add these points to the LineSeries.
+            regressionLine.Points.Add(new DataPoint(minX, A + B * minX));
+            regressionLine.Points.Add(new DataPoint(maxX, A + B * maxX));
+
+            // Add the regression line to the PlotModel.
+            PerformanceTestPlot.Model.Series.Add(regressionLine);
+
+            PerformanceTestPlot.Model.InvalidatePlot(true); // To update the plot
         }
         catch (Exception ex)
         {
