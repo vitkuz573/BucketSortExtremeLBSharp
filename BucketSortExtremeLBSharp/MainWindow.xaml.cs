@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BucketSortExtremeLBSharp;
 
@@ -23,13 +25,28 @@ public partial class MainWindow : System.Windows.Window
         _random = new Random();
     }
 
+    private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+        e.Handled = !IsTextAllowed(fullText);
+    }
+
+    private static bool IsTextAllowed(string text)
+    {
+        text = text.Replace('.', ',');
+
+        return double.TryParse(text, out _);
+    }
+
+
     private void GenerateAndSortButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            var A = Convert.ToDouble(ATextBox.Text);
-            var B = Convert.ToDouble(BTextBox.Text);
-            var C = Convert.ToDouble(CTextBox.Text);
+            var A = Convert.ToDouble(ATextBox.Text.Replace('.', ','));
+            var B = Convert.ToDouble(BTextBox.Text.Replace('.', ','));
+            var C = Convert.ToDouble(CTextBox.Text.Replace('.', ','));
 
             _bucketSort = new BucketSort(A, B, C);
 

@@ -42,11 +42,11 @@
                     <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Параметры">
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <Label Content="A:"/>
-                            <TextBox Width="60" Margin="5" Name="ATextBox" />
+                            <TextBox Width="60" Margin="5" Name="ATextBox" PreviewTextInput="TextBox_PreviewTextInput" />
                             <Label Content="B:"/>
-                            <TextBox Width="60" Margin="5" Name="BTextBox" />
+                            <TextBox Width="60" Margin="5" Name="BTextBox" PreviewTextInput="TextBox_PreviewTextInput" />
                             <Label Content="C:"/>
-                            <TextBox Width="60" Margin="5" Name="CTextBox" />
+                            <TextBox Width="60" Margin="5" Name="CTextBox" PreviewTextInput="TextBox_PreviewTextInput" />
                             <Label Content="Размер:"/>
                             <TextBox Width="60" Margin="5" Name="SizeTextBox" />
                             <CheckBox Margin="5" Name="DescendingCheckBox" Content="Убывающий" />
