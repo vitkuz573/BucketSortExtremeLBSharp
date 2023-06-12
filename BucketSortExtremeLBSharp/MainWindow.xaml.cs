@@ -6,6 +6,7 @@ using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,17 +37,46 @@ public partial class MainWindow : System.Windows.Window
     {
         text = text.Replace('.', ',');
 
-        return double.TryParse(text, out _);
+        if (double.TryParse(text, out var number))
+        {
+            return number != 0.0;
+        }
+
+        return false;
     }
 
+    private void SizeTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+        e.Handled = !IsSizeTextAllowed(fullText);
+    }
+
+    private static bool IsSizeTextAllowed(string text)
+    {
+        return int.TryParse(text, out _);
+    }
+
+    private void TestCountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+        e.Handled = !IsTestCountTextAllowed(fullText);
+    }
+
+    private static bool IsTestCountTextAllowed(string text)
+    {
+        return int.TryParse(text, out _);
+    }
 
     private void GenerateAndSortButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            var A = Convert.ToDouble(ATextBox.Text.Replace('.', ','));
-            var B = Convert.ToDouble(BTextBox.Text.Replace('.', ','));
-            var C = Convert.ToDouble(CTextBox.Text.Replace('.', ','));
+            var culture = CultureInfo.InvariantCulture;
+            var A = Convert.ToDouble(ATextBox.Text, culture);
+            var B = Convert.ToDouble(BTextBox.Text, culture);
+            var C = Convert.ToDouble(CTextBox.Text, culture);
 
             _bucketSort = new BucketSort(A, B, C);
 

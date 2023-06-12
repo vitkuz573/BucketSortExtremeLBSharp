@@ -48,7 +48,7 @@
                             <Label Content="C:"/>
                             <TextBox Width="60" Margin="5" Name="CTextBox" PreviewTextInput="TextBox_PreviewTextInput" />
                             <Label Content="Размер:"/>
-                            <TextBox Width="60" Margin="5" Name="SizeTextBox" />
+                            <TextBox Width="60" Margin="5" Name="SizeTextBox" PreviewTextInput="SizeTextBox_PreviewTextInput" />
                             <CheckBox Margin="5" Name="DescendingCheckBox" Content="Убывающий" />
                             <Button Width="120" Margin="5" Name="GenerateAndSortButton" Content="Сортировать" Click="GenerateAndSortButton_Click"/>
                         </StackPanel>
@@ -109,7 +109,7 @@
                     <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Тест производительности и Анализ регрессии">
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <Label Content="Количество тестов:"/>
-                            <TextBox Width="60" Margin="5" Name="TestCountTextBox" />
+                            <TextBox Width="60" Margin="5" Name="TestCountTextBox" PreviewTextInput="TestCountTextBox_PreviewTextInput" />
                             <Button Width="120" Margin="5" Name="RunPerformanceTestAndRegressionAnalysisButton" Content="Анализ" Click="RunPerformanceTestAndRegressionAnalysisButton_Click" />
                         </StackPanel>
                     </GroupBox>
