@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace BucketSortExtremeLBSharp;
@@ -247,10 +248,15 @@ public partial class MainWindow : System.Windows.Window
             var sumXSquare = arraySizesDouble.Select(a => a * a).Sum();
             var n = timesDouble.Length;
 
-            SystemNormalEquationsTextBox.Text = $"{sumY} = {n}*a0 + a1*{sumX}\n{sumXY} = a0*{sumX} + a1*{sumXSquare}";
+            // Построение системы нормальных уравнений
+            var systemNormalEquations = new FlowDocument();
+            systemNormalEquations.Blocks.Add(new Paragraph(new Run($"{sumY} = {n}*a0 + a1*{sumX}\n{sumXY} = a0*{sumX} + a1*{sumXSquare}")));
+            SystemNormalEquationsTextBox.Document = systemNormalEquations;
 
             // Построение уравнения связи
-            EquationTextBox.Text = $"y = {A} + {B}*x";
+            var equation = new FlowDocument();
+            equation.Blocks.Add(new Paragraph(new Run($"y = {A} + {B}*x")));
+            EquationTextBox.Document = equation;
 
             var regressionResults = new List<PerformanceTestResult>();
 

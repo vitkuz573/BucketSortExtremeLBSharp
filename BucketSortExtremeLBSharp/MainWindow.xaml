@@ -155,9 +155,21 @@
                                 <TextBox Width="60" Margin="5" Name="A1CoefficientTextBox" IsReadOnly="True" />
                             </StackPanel>
                             <Label Content="Система нормальных уравнений:"/>
-                            <TextBox Width="400" Margin="5" Name="SystemNormalEquationsTextBox" IsReadOnly="True" />
+                            <RichTextBox Width="400" Margin="5" Name="SystemNormalEquationsTextBox" IsReadOnly="True" Background="Transparent" BorderThickness="0">
+                                <FlowDocument>
+                                    <Paragraph>
+                                        <Run Text="Здесь будут показаны системы нормальных уравнений после проведения анализа" />
+                                    </Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
                             <Label Content="Уравнение связи:"/>
-                            <TextBox Width="400" Margin="5" Name="EquationTextBox" IsReadOnly="True" />
+                            <RichTextBox Width="400" Margin="5" Name="EquationTextBox" IsReadOnly="True" Background="Transparent" BorderThickness="0">
+                                <FlowDocument>
+                                    <Paragraph>
+                                        <Run Text="Здесь будет показано уравнение связи после проведения анализа" />
+                                    </Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
                         </StackPanel>
                     </GroupBox>
                 </Grid>
