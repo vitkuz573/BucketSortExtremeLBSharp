@@ -292,11 +292,10 @@ public partial class MainWindow : System.Windows.Window
 
             PerformanceTestListView.ItemsSource = regressionResults;
 
-            // Find the minimum and maximum x values (input sizes).
+            // Находим минимальное и максимальное значения x
             double minX = arraySizesDouble.Min();
             double maxX = arraySizesDouble.Max();
 
-            // Create a new LineSeries object for the regression line.
             var regressionLine = new LineSeries
             {
                 StrokeThickness = 2,
@@ -313,7 +312,7 @@ public partial class MainWindow : System.Windows.Window
             // Добавление линии регресии на график
             PerformanceTestPlot.Model.Series.Add(regressionLine);
 
-            PerformanceTestPlot.Model.InvalidatePlot(true); // To update the plot
+            PerformanceTestPlot.Model.InvalidatePlot(true); // Обновление графика
         }
         catch (Exception ex)
         {
