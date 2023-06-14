@@ -55,7 +55,12 @@ public partial class MainWindow : System.Windows.Window
 
     private static bool IsSizeTextAllowed(string text)
     {
-        return int.TryParse(text, out _);
+        if (int.TryParse(text, out var number))
+        {
+            return number >= 1;
+        }
+
+        return false;
     }
 
     private void TestCountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -67,7 +72,12 @@ public partial class MainWindow : System.Windows.Window
 
     private static bool IsTestCountTextAllowed(string text)
     {
-        return int.TryParse(text, out _);
+        if (int.TryParse(text, out var number))
+        {
+            return number >= 2;
+        }
+
+        return false;
     }
 
     private void GenerateAndSortButton_Click(object sender, RoutedEventArgs e)
@@ -293,14 +303,14 @@ public partial class MainWindow : System.Windows.Window
                 Color = OxyColors.Blue,
                 MarkerSize = 3,
                 CanTrackerInterpolatePoints = false,
-                Title = "Regression Line",
+                Title = "Линия регрессии",
             };
-
-            // Calculate y (predicted time) for minimum and maximum x values and add these points to the LineSeries.
+            
+            // Расчет y (прогнозируемое время) для минимального и максимального значения x и добавление точек в LineSeries
             regressionLine.Points.Add(new DataPoint(minX, A + B * minX));
             regressionLine.Points.Add(new DataPoint(maxX, A + B * maxX));
 
-            // Add the regression line to the PlotModel.
+            // Добавление линии регресии на график
             PerformanceTestPlot.Model.Series.Add(regressionLine);
 
             PerformanceTestPlot.Model.InvalidatePlot(true); // To update the plot

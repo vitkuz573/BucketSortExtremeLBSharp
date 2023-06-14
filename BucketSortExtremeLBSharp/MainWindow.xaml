@@ -49,7 +49,7 @@
                             <TextBox Width="60" Margin="5" Name="CTextBox" PreviewTextInput="TextBox_PreviewTextInput" />
                             <Label Content="Размер:"/>
                             <TextBox Width="60" Margin="5" Name="SizeTextBox" PreviewTextInput="SizeTextBox_PreviewTextInput" />
-                            <CheckBox Margin="5" Name="DescendingCheckBox" Content="Убывающий" />
+                            <CheckBox Margin="5" Name="DescendingCheckBox" Content="По убыванию" />
                             <Button Width="120" Margin="5" Name="GenerateAndSortButton" Content="Сортировать" Click="GenerateAndSortButton_Click"/>
                         </StackPanel>
                     </GroupBox>
@@ -124,7 +124,7 @@
                         <ListView Name="PerformanceTestListView">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="#" DisplayMemberBinding="{Binding Number}" />
+                                    <GridViewColumn Header="#" DisplayMemberBinding="{Binding TestNumber}" />
                                     <GridViewColumn Header="Время (y)" DisplayMemberBinding="{Binding Time}" />
                                     <GridViewColumn Header="Размер массива (x)" DisplayMemberBinding="{Binding ArraySize}" />
                                     <GridViewColumn Header="x*x" DisplayMemberBinding="{Binding ArraySizeSquared}" />
