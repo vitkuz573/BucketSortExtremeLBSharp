@@ -92,7 +92,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Производительность и Регрессия">
+            <TabItem Header="Регрессия">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -106,7 +106,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Performance test and Regression Analysis -->
-                    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Тест производительности и Анализ регрессии">
+                    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Анализ регрессии">
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <Label Content="Количество тестов:"/>
                             <TextBox Width="60" Margin="5" Name="TestCountTextBox" PreviewTextInput="TestCountTextBox_PreviewTextInput" />
@@ -115,12 +115,12 @@
                     </GroupBox>
 
                     <!-- Performance plot -->
-                    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="График производительности">
+                    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="График">
                         <oxy:PlotView x:Name="PerformanceTestPlot" />
                     </GroupBox>
 
                     <!-- Performance and regression table -->
-                    <GroupBox Grid.Row="2" Grid.Column="0" Header="Таблица производительности и регрессии">
+                    <GroupBox Grid.Row="2" Grid.Column="0" Header="Таблица регрессии">
                         <ListView Name="PerformanceTestListView">
                             <ListView.View>
                                 <GridView>
@@ -138,22 +138,22 @@
                     <!-- Regression coefficients and equations -->
                     <GroupBox Grid.Row="2" Grid.Column="1" Header="Результаты регрессии">
                         <StackPanel Orientation="Vertical" Margin="5">
-<StackPanel Orientation="Horizontal">
-    <Label Content="Коэффициент корреляции:"/>
-    <TextBox Width="100" Margin="5" Name="CorrelationCoefficientTextBox" IsReadOnly="True" />
-</StackPanel>
-<StackPanel Orientation="Horizontal">
-    <Label Content="Коэффициент детерминации:"/>
-    <TextBox Width="100" Margin="5" Name="DeterminationCoefficientTextBox" IsReadOnly="True" />
-</StackPanel>
-<StackPanel Orientation="Horizontal">
-    <Label Content="Коэффициент уравнения связи a0:"/>
-    <TextBox Width="100" Margin="5" Name="A0CoefficientTextBox" IsReadOnly="True" />
-</StackPanel>
-<StackPanel Orientation="Horizontal">
-    <Label Content="Коэффициент уравнения связи a1:"/>
-    <TextBox Width="100" Margin="5" Name="A1CoefficientTextBox" IsReadOnly="True" />
-</StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Коэффициент корреляции:"/>
+                                <TextBox Width="100" Margin="5" Name="CorrelationCoefficientTextBox" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Коэффициент детерминации:"/>
+                                <TextBox Width="100" Margin="5" Name="DeterminationCoefficientTextBox" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Коэффициент уравнения связи a0:"/>
+                                <TextBox Width="100" Margin="5" Name="A0CoefficientTextBox" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Коэффициент уравнения связи a1:"/>
+                                <TextBox Width="100" Margin="5" Name="A1CoefficientTextBox" IsReadOnly="True" />
+                            </StackPanel>
 
                             <Label Content="Система нормальных уравнений:"/>
                             <RichTextBox Width="400" Margin="5" Name="SystemNormalEquationsTextBox" IsReadOnly="True" Background="Transparent" BorderThickness="0">

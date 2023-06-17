@@ -301,15 +301,15 @@ public partial class MainWindow : System.Windows.Window
                     Time = result.Time,
                     ArraySize = result.ArraySize,
                     ArraySizeSquared = Math.Pow(result.ArraySize, 2),
-                    TimeTimesArraySize = Math.Round(result.Time * result.ArraySize, 3),
-                    ElasticityCoefficient = Math.Round(elasticityCoefficient, 3)
+                    TimeTimesArraySize = result.Time * result.ArraySize,
+                    ElasticityCoefficient = elasticityCoefficient
                 });
             }
 
-            CorrelationCoefficientTextBox.Text = Math.Round(correlationCoefficient, 3).ToString();
-            DeterminationCoefficientTextBox.Text = Math.Round(determinationCoefficient, 3).ToString();
-            A0CoefficientTextBox.Text = Math.Round(A, 3).ToString();
-            A1CoefficientTextBox.Text = Math.Round(B, 3).ToString();
+            CorrelationCoefficientTextBox.Text = correlationCoefficient.ToString();
+            DeterminationCoefficientTextBox.Text = determinationCoefficient.ToString();
+            A0CoefficientTextBox.Text = A.ToString();
+            A1CoefficientTextBox.Text = B.ToString();
 
             PerformanceTestListView.ItemsSource = regressionResults;
 
