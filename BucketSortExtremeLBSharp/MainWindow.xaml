@@ -56,7 +56,7 @@
 
                     <!-- Input list -->
                     <GroupBox Grid.Row="1" Grid.Column="0" Header="Ввод">
-                        <ListView Name="InputListView">
+                        <ListView Name="InputListView" VirtualizingPanel.IsVirtualizing="True">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Индекс" DisplayMemberBinding="{Binding Index}" />
@@ -68,11 +68,11 @@
 
                     <!-- Output list -->
                     <GroupBox Grid.Row="1" Grid.Column="1" Header="Вывод">
-                        <ListView Name="OutputListView">
+                        <ListView Name="OutputListView" VirtualizingPanel.IsVirtualizing="True">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Индекс" DisplayMemberBinding="{Binding Index}" />
-                                    <GridViewColumn Header="Значение" DisplayMemberBinding="{Binding Value}" />
+                                    <GridViewColumn Header="Индекс" DisplayMemberBinding="{Binding Index}" Width="Auto" />
+                                    <GridViewColumn Header="Значение" DisplayMemberBinding="{Binding Value}" Width="Auto" />
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -138,22 +138,23 @@
                     <!-- Regression coefficients and equations -->
                     <GroupBox Grid.Row="2" Grid.Column="1" Header="Результаты регрессии">
                         <StackPanel Orientation="Vertical" Margin="5">
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Коэффициент корреляции:"/>
-                                <TextBox Width="60" Margin="5" Name="CorrelationCoefficientTextBox" IsReadOnly="True" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Коэффициент детерминации:"/>
-                                <TextBox Width="60" Margin="5" Name="DeterminationCoefficientTextBox" IsReadOnly="True" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Коэффициент уравнения связи a0:"/>
-                                <TextBox Width="60" Margin="5" Name="A0CoefficientTextBox" IsReadOnly="True" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Коэффициент уравнения связи a1:"/>
-                                <TextBox Width="60" Margin="5" Name="A1CoefficientTextBox" IsReadOnly="True" />
-                            </StackPanel>
+<StackPanel Orientation="Horizontal">
+    <Label Content="Коэффициент корреляции:"/>
+    <TextBox Width="100" Margin="5" Name="CorrelationCoefficientTextBox" IsReadOnly="True" />
+</StackPanel>
+<StackPanel Orientation="Horizontal">
+    <Label Content="Коэффициент детерминации:"/>
+    <TextBox Width="100" Margin="5" Name="DeterminationCoefficientTextBox" IsReadOnly="True" />
+</StackPanel>
+<StackPanel Orientation="Horizontal">
+    <Label Content="Коэффициент уравнения связи a0:"/>
+    <TextBox Width="100" Margin="5" Name="A0CoefficientTextBox" IsReadOnly="True" />
+</StackPanel>
+<StackPanel Orientation="Horizontal">
+    <Label Content="Коэффициент уравнения связи a1:"/>
+    <TextBox Width="100" Margin="5" Name="A1CoefficientTextBox" IsReadOnly="True" />
+</StackPanel>
+
                             <Label Content="Система нормальных уравнений:"/>
                             <RichTextBox Width="400" Margin="5" Name="SystemNormalEquationsTextBox" IsReadOnly="True" Background="Transparent" BorderThickness="0">
                                 <FlowDocument>

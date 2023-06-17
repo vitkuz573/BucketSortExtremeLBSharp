@@ -85,13 +85,28 @@ public partial class MainWindow : System.Windows.Window
         try
         {
             var culture = CultureInfo.InvariantCulture;
-            var A = Convert.ToDouble(ATextBox.Text, culture);
-            var B = Convert.ToDouble(BTextBox.Text, culture);
-            var C = Convert.ToDouble(CTextBox.Text, culture);
+
+            // Проверка, что поля не пустые и значения можно преобразовать в double
+            if (string.IsNullOrEmpty(ATextBox.Text) ||
+                string.IsNullOrEmpty(BTextBox.Text) ||
+                string.IsNullOrEmpty(CTextBox.Text) ||
+                !double.TryParse(ATextBox.Text, NumberStyles.Float, culture, out double A) ||
+                !double.TryParse(BTextBox.Text, NumberStyles.Float, culture, out double B) ||
+                !double.TryParse(CTextBox.Text, NumberStyles.Float, culture, out double C))
+            {
+                MessageBox.Show("Пожалуйста, введите валидные коэффициенты (A, B, C).", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             _bucketSort = new BucketSort(A, B, C);
 
-            var size = Convert.ToInt32(SizeTextBox.Text);
+            // Проверка, что поле не пустое и значение можно преобразовать в int
+            if (string.IsNullOrEmpty(SizeTextBox.Text) ||
+                !int.TryParse(SizeTextBox.Text, out int size))
+            {
+                MessageBox.Show("Пожалуйста, введите валидный размер массива.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             var numbers = new List<double>();
 
@@ -134,7 +149,13 @@ public partial class MainWindow : System.Windows.Window
         {
             try
             {
-                var testCount = Convert.ToInt32(TestCountTextBox.Text);
+                // Проверка, что поле не пустое и значение можно преобразовать в int
+                if (string.IsNullOrEmpty(TestCountTextBox.Text) || !int.TryParse(TestCountTextBox.Text, out int testCount))
+                {
+                    MessageBox.Show("Пожалуйста, введите валидное количество тестов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 var inputSizes = new List<int>();
                 var performanceResults = new List<PerformanceTestResult>();
 
