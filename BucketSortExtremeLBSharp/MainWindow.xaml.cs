@@ -36,9 +36,9 @@ public partial class MainWindow : System.Windows.Window
 
     private static bool IsTextAllowed(string text)
     {
-        text = text.Replace('.', ',');
+        text = text.Replace(',', '.');  // заменяем запятые на точки
 
-        if (double.TryParse(text, out var number))
+        if (double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var number))  // используем InvariantCulture, ожидающую точку в качестве десятичного разделителя
         {
             return number != 0.0;
         }
@@ -84,15 +84,15 @@ public partial class MainWindow : System.Windows.Window
     {
         try
         {
+            // Проверка, что поля не пустые и значения можно преобразовать в double
             var culture = CultureInfo.InvariantCulture;
 
-            // Проверка, что поля не пустые и значения можно преобразовать в double
             if (string.IsNullOrEmpty(ATextBox.Text) ||
                 string.IsNullOrEmpty(BTextBox.Text) ||
                 string.IsNullOrEmpty(CTextBox.Text) ||
-                !double.TryParse(ATextBox.Text, NumberStyles.Float, culture, out double A) ||
-                !double.TryParse(BTextBox.Text, NumberStyles.Float, culture, out double B) ||
-                !double.TryParse(CTextBox.Text, NumberStyles.Float, culture, out double C))
+                !double.TryParse(ATextBox.Text.Replace(',', '.'), NumberStyles.Float, culture, out double A) ||
+                !double.TryParse(BTextBox.Text.Replace(',', '.'), NumberStyles.Float, culture, out double B) ||
+                !double.TryParse(CTextBox.Text.Replace(',', '.'), NumberStyles.Float, culture, out double C))
             {
                 MessageBox.Show("Пожалуйста, введите валидные коэффициенты (A, B, C).", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -153,6 +153,7 @@ public partial class MainWindow : System.Windows.Window
                 if (string.IsNullOrEmpty(TestCountTextBox.Text) || !int.TryParse(TestCountTextBox.Text, out int testCount))
                 {
                     MessageBox.Show("Пожалуйста, введите валидное количество тестов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
                     return;
                 }
 
