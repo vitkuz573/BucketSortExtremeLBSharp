@@ -280,15 +280,17 @@ public partial class MainWindow : System.Windows.Window
             var sumXSquare = arraySizesDouble.Select(a => a * a).Sum();
             var n = timesDouble.Length;
 
-            // Построение системы нормальных уравнений
-            var systemNormalEquations = new FlowDocument();
-            systemNormalEquations.Blocks.Add(new Paragraph(new Run($"{sumY} = {n}*a0 + a1*{sumX}\n{sumXY} = a0*{sumX} + a1*{sumXSquare}")));
-            SystemNormalEquationsTextBox.Document = systemNormalEquations;
+            // Преобразование уравнений в LaTeX
+            var equation1 = $"{Math.Round(sumY, 3)} = {n} \\cdot a0 + a1 \\cdot {sumX}";
+            var equation2 = $"{Math.Round(sumXY, 3)} = a0 \\cdot {sumX} + a1 \\cdot {sumXSquare}";
 
-            // Построение уравнения связи
-            var equation = new FlowDocument();
-            equation.Blocks.Add(new Paragraph(new Run($"y = {A} + {B}*x")));
-            EquationTextBox.Document = equation;
+            // Установка уравнений в FormulaControl
+            SystemNormalEquation1TextBox.Formula = equation1;
+            SystemNormalEquation2TextBox.Formula = equation2;
+
+            // Построение и отображение уравнения связи
+            var equation = $"y = {Math.Round(A, 3)} + {Math.Round(B, 3)} \\cdot x";
+            EquationTextBox.Formula = equation;
 
             var regressionResults = new List<PerformanceTestResult>();
 
