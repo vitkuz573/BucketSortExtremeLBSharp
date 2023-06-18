@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfMath="clr-namespace:WpfMath.Controls;assembly=WpfMath"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="Курсовой проект. Алгоритм сортировки Bucket Sort. Вероятностный закон распределения ExtremeLB. Кузяев Виталий. ИТЗ-0940321у" Height="700" Width="950" ResizeMode="NoResize">
@@ -15,14 +16,10 @@
                         <Run Text="Bucket Sort, или сортировка ведрами, - это сортировочный алгоритм, который делит набор элементов на определенное количество ведер, затем сортирует каждое ведро отдельно. Каждое из отсортированных ведер затем объединяется для получения отсортированного массива."/><LineBreak/><LineBreak/>
                         <Run Text="Это хорошо работает, когда входные данные равномерно распределены по диапазону. Эффективность Bucket Sort напрямую зависит от этого распределения."/><LineBreak/><LineBreak/>
                     </TextBlock>
-                    <TextBlock Margin="0,20,0,0" TextWrapping="WrapWithOverflow">
-                        <Run FontWeight="Bold" Text="Функция F(x):"/><LineBreak/><LineBreak/>
-                        <Run Text="F(x) = e^(-(x - A) / B) ^ -C"/><LineBreak/><LineBreak/>
-                    </TextBlock>
-                    <TextBlock TextWrapping="WrapWithOverflow">
-                        <Run FontWeight="Bold" Text="Обратная функция F^-1(u):"/><LineBreak/><LineBreak/>
-                        <Run Text="F^-1(u) = A + B * (-log(u))^(-1/C)"/>
-                    </TextBlock>
+                    <Label Content="Функция F(x):" Margin="0,20,0,0" />
+                    <wpfMath:FormulaControl Formula="F(x) = e^{-\frac{{(x - A)}}{{B}}^{-C}}" />
+                    <Label Content="Обратная функция F^-1(u):" />
+                    <wpfMath:FormulaControl Formula="F^{-1}(u) = A + B * (-\log{u})^{-\frac{1}{C}}" />
                 </StackPanel>
             </TabItem>
 
